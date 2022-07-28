@@ -3,6 +3,10 @@ import { AppDataSource } from "./data-source";
 
 const port = process.env.PORT || 3000;
 
+app.get("/", (req, res) => {
+  return res.send("App is running!")
+})
+
 app.listen(port, async () => {
   await AppDataSource.initialize()
     .then(() => {
