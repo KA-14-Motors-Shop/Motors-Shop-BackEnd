@@ -7,11 +7,11 @@ on:
   # Triggers the workflow on push or pull request events but only for the develop branch
   push:
     branches:
-      - develop
+      - developer
       - main
   pull_request:
     branches:
-      - develop
+      - developer
       - main
 
   # Allows you to run this workflow manually from the Actions tab
