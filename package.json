@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "ts-node-dev --inspect --ignore-watch node_modules src/server.ts",
     "typeorm": "typeorm-ts-node-commonjs",
-    "build": "tsc"
+    "build": "tsc",
+    "start": "node dist/src/server.js"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",
