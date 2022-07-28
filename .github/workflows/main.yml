@@ -1,0 +1,84 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the develop branch
+  push:
+    branches:
+      - develop
+      - main
+  pull_request:
+    branches:
+      - develop
+      - main
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+# jobs:
+#   container-job:
+#     # Containers must run in Linux based operating systems
+#     runs-on: ubuntu-latest
+#     # Docker Hub image that `container-job` executes in
+#     container: node
+
+#     # Steps represent a sequence of tasks that will be executed as part of the job
+#     steps:
+#       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+#       - uses: actions/checkout@v3
+
+#       # Runs a single command using the runners shell
+#       - name: Install dependencies
+#         run: yarn
+
+#       # Runs a set of commands using the runners shell
+#       - name: Run tests
+#         run: yarn test
+
+jobs:
+  # Label of the container job
+  container-job:
+    # Containers must run in Linux based operating systems
+    runs-on: ubuntu-latest
+    # Docker Hub image that `container-job` executes in
+    container: node
+
+    # Service containers to run with `container-job`
+    services:
+      # Label used to access the service container
+      postgres:
+        # Docker Hub image
+        image: postgres
+        ports:
+          - 5432:5432
+        # Provide the password for postgres
+        env:
+          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+          POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
+          POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
+        # Set health checks to wait until postgres has started
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    steps:
+      # Downloads a copy of the code in your repository before running CI tests
+      - name: Check out repository code
+        uses: actions/checkout@v3
+
+      # Performs a clean installation of all dependencies in the `package.json` file
+      # For more information, see https://docs.npmjs.com/cli/ci.html
+      - name: Install dependencies
+        run: yarn
+
+      - name: run tests
+        # Runs a script that creates a PostgreSQL table, populates
+        # the table with data, and then retrieves the data.
+        run: yarn tests
+        # Environment variables used by the `client.js` script to create a new PostgreSQL table.
+        env:
+          DATABASE_TEST: ${{ secrets.DATABASE_URL }}
