@@ -12,6 +12,7 @@ export default class AdvertisimentController {
       description,
       vehicle_type,
       is_active,
+      images,
     } = req.body;
 
     const createAd = new CreateAdvertisimentService();
@@ -25,6 +26,7 @@ export default class AdvertisimentController {
       description,
       vehicle_type,
       is_active,
+      images,
     });
 
     return res.status(201).json(ad);
