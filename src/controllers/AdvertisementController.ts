@@ -1,7 +1,7 @@
-import CreateAdvertsimentService from "../services/advertisements/CreateAdvertsimentService";
+import CreateAdvertisimentService from "../services/advertisements/CreateAdvertisimentService";
 import { Request, Response } from "express";
 
-export default class AdvertsimentController {
+export default class AdvertisimentController {
   static async store(req: Request, res: Response) {
     const {
       type,
@@ -14,7 +14,7 @@ export default class AdvertsimentController {
       is_active,
     } = req.body;
 
-    const createAd = new CreateAdvertsimentService();
+    const createAd = new CreateAdvertisimentService();
 
     const ad = await createAd.execute({
       type,

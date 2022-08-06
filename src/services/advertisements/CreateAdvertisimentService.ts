@@ -16,7 +16,7 @@ interface AdDataParams {
   is_active: boolean;
 }
 
-export default class CreateAdvertsimentService {
+export default class CreateAdvertisimentService {
   async execute(data: AdDataParams) {
     const adRepo = AppDataSource.getRepository(Advertisement);
     const ad = adRepo.create(data);
