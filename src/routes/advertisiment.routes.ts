@@ -6,5 +6,6 @@ const adRouter = Router();
 adRouter.post("/", AdvertisimentController.store);
 adRouter.get("/", AdvertisimentController.index);
 adRouter.get("/:ad_id", AdvertisimentController.show);
+adRouter.patch("/switch/:ad_id", AdvertisimentController.toggleActive);
 
 export default adRouter;
