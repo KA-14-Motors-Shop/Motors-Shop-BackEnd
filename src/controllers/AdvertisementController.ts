@@ -1,8 +1,8 @@
-import CreateAdvertisimentService from "../services/advertisements/CreateAdvertisimentService";
+import CreateAdvertisimentService from "../services/advertisement/CreateAdvertisimentService";
 import { Request, Response } from "express";
-import ListAdvertisimentsService from "../services/advertisements/ListAdvertisimentsService";
-import ShowAdvertisimentService from "../services/advertisements/ShowAdvertisimentService";
-import ToggleIsActiveAdService from "../services/advertisements/ToggleIsActiveAdService";
+import ListAdvertisimentsService from "../services/advertisement/ListAdvertisimentsService";
+import ShowAdvertisimentService from "../services/advertisement/ShowAdvertisimentService";
+import ToggleIsActiveAdService from "../services/advertisement/ToggleIsActiveAdService";
 
 export default class AdvertisimentController {
   static async store(req: Request, res: Response) {
