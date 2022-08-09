@@ -9,9 +9,9 @@ const createAdvertisementSchema = {
           .oneOf(["sale", "auction"])
           .required("type is required"),
         title: yup.string().required("title is required"),
-        year: yup.number().required("year is required"),
-        mileage: yup.number().required("mileage is required"),
-        price: yup.number().required("price is required"),
+        year: yup.number().min(1870).required("year is required"),
+        mileage: yup.number().min(0).required("mileage is required"),
+        price: yup.number().min(0).required("price is required"),
         description: yup.string().required("description is required"),
         vehicle_type: yup
           .mixed()
