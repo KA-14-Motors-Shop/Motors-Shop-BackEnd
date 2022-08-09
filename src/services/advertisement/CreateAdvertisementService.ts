@@ -18,7 +18,7 @@ interface AdDataParams {
   images: Image[];
 }
 
-export default class CreateAdvertisimentService {
+export default class CreateAdvertisementService {
   static async execute(data: AdDataParams) {
     const adRepo = AppDataSource.getRepository(Advertisement);
     const imgRepo = AppDataSource.getRepository(Image);

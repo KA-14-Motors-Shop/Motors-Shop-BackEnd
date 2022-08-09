@@ -1,10 +1,10 @@
-import CreateAdvertisimentService from "../services/advertisement/CreateAdvertisimentService";
+import CreateAdvertisementService from "../services/advertisement/CreateAdvertisementService";
 import { Request, Response } from "express";
-import ListAdvertisimentsService from "../services/advertisement/ListAdvertisimentsService";
-import ShowAdvertisimentService from "../services/advertisement/ShowAdvertisimentService";
+import ListAdvertisementsService from "../services/advertisement/ListAdvertisementsService";
+import ShowAdvertisementService from "../services/advertisement/ShowAdvertisementService";
 import ToggleIsActiveAdService from "../services/advertisement/ToggleIsActiveAdService";
 
-export default class AdvertisimentController {
+export default class AdvertisementController {
   static async store(req: Request, res: Response) {
     const {
       type,
@@ -18,7 +18,7 @@ export default class AdvertisimentController {
       images,
     } = req.body;
 
-    const ad = await CreateAdvertisimentService.execute({
+    const ad = await CreateAdvertisementService.execute({
       type,
       title,
       year,
@@ -34,13 +34,13 @@ export default class AdvertisimentController {
   }
 
   static async index(req: Request, res: Response) {
-    const ads = await ListAdvertisimentsService.execute();
+    const ads = await ListAdvertisementsService.execute();
     return res.status(200).json(ads);
   }
 
   static async show(req: Request, res: Response) {
     const { ad_id } = req.params;
-    const ad = await ShowAdvertisimentService.execute(ad_id);
+    const ad = await ShowAdvertisementService.execute(ad_id);
     return res.status(200).json(ad);
   }
 
