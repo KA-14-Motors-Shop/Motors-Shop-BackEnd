@@ -20,6 +20,9 @@ const createAdvertisementSchema = {
         is_active: yup.boolean().required("is active is required"),
         images: yup.array().required("at least one image is required"),
       }),
+      validateOptions: {
+        abortEarly: false,
+      },
     },
   },
 };
