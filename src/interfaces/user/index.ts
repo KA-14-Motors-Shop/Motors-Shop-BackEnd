@@ -6,14 +6,19 @@ export interface UserCreationParams {
     description: string
     cell_phone:  string
     birthday:    string
-    address: AddresCreationParams
+    address:     AddresCreationParams
 }
 
 export interface AddresCreationParams{
-    cep: string
-    state: string
-    city: string
-    street: string
-    number: number
+    cep:        string
+    state:      string
+    city:       string
+    street:     string
+    number:     number
     complement: string
+}
+
+export interface UserLoginParams{
+    email:      string
+    password:   string
 }

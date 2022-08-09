@@ -2,7 +2,9 @@ import {Request, Response} from "express"
 import { array } from "yup"
 import { AppDataSource } from "../../data-source"
 import { User } from "../../entities/users.entity"
-import userCreateService from "../../services/user/userCreate.service"
+import UserMainService from "../../services/user/user.service"
+// import UserMainService from "../../services/user/userCreate.service"
+
 import userListOneService from "../../services/user/userListOne.service"
 
 export default class UserController {
@@ -12,7 +14,7 @@ export default class UserController {
         try{
             const {name, cpf, email, password, description, cell_phone,birthday, address} = req.body
 
-            const newUser = await userCreateService({name,cpf,email,password,description,cell_phone,birthday,address})
+            const newUser = await UserMainService.creationService({name,cpf,email,password,description,cell_phone,birthday,address})
 
             return res.status(201).send(newUser)
 
@@ -43,16 +45,35 @@ export default class UserController {
             newList.push(noPassword)
         })
 
-        return newList
+        return res.json(newList)
     }
 
+
+    static async loginUser(req:Request, res:Response){
+        try{
+            const {email, password} = req.body
+
+            const token = await  UserMainService.userLoginService({email, password})
+
+            return res.status(201).json(token)
+        } catch(err) {
+            if (err instanceof Error) {
+
+                return res.status(401).send({
+                    "error": err.name,
+                    "message": err.message
+                })
+            }
+        }
+
+    }
 
     static async indexOne(req:Request, res:Response){
 
         try{
             const {userId} = req.params
     
-            const uniqueUser = await userListOneService(userId)
+            const uniqueUser = await UserMainService.listOneService(userId)
 
             return res.status(200).send(uniqueUser)
 
@@ -68,11 +89,11 @@ export default class UserController {
         }
     }
 
-    static async update (req:Request, res:Response){
-        try {
-            // PRECISO DO MIDDLEWARE PARA CONTINUAR
-        }
+    // static async update (req:Request, res:Response){
+    //     try {
+    //         // PRECISO DO MIDDLEWARE PARA CONTINUAR
+    //     }
 
 
-    }
+    // }
 }
