@@ -18,9 +18,7 @@ export default class AdvertisimentController {
       images,
     } = req.body;
 
-    const createAd = new CreateAdvertisimentService();
-
-    const ad = await createAd.execute({
+    const ad = await CreateAdvertisimentService.execute({
       type,
       title,
       year,
@@ -36,22 +34,19 @@ export default class AdvertisimentController {
   }
 
   static async index(req: Request, res: Response) {
-    const indexAds = new ListAdvertisimentsService();
-    const ads = await indexAds.execute();
+    const ads = await ListAdvertisimentsService.execute();
     return res.status(200).json(ads);
   }
 
   static async show(req: Request, res: Response) {
     const { ad_id } = req.params;
-    const showAd = new ShowAdvertisimentService();
-    const ad = await showAd.execute(ad_id);
+    const ad = await ShowAdvertisimentService.execute(ad_id);
     return res.status(200).json(ad);
   }
 
   static async toggleActive(req: Request, res: Response) {
     const { ad_id } = req.params;
-    const toggleAd = new ToggleIsActiveAdService();
-    const ad = await toggleAd.execute(ad_id);
+    const ad = await ToggleIsActiveAdService.execute(ad_id);
     return res.status(200).json(ad);
   }
 }
