@@ -71,9 +71,9 @@ export default class UserController {
     static async indexOne(req:Request, res:Response){
 
         try{
-            const {userId} = req.params
+            const globalEmail = req.userEmail
     
-            const uniqueUser = await UserMainService.listOneService(userId)
+            const uniqueUser = await UserMainService.listOneService(globalEmail)
 
             return res.status(200).send(uniqueUser)
 
@@ -89,11 +89,58 @@ export default class UserController {
         }
     }
 
-    // static async update (req:Request, res:Response){
-    //     try {
-    //         // PRECISO DO MIDDLEWARE PARA CONTINUAR
-    //     }
+    static async update (req:Request, res:Response){
+        try {
+            const globalEmail = req.userEmail
+
+            const {name, cpf, email, password, description, cell_phone, birthday, address} = req.body
+
+            if (globalEmail !== email) {
+                throw new Error("You have not permission!")
+            }
 
 
-    // }
+            const newUser = await UserMainService.userUpdateService({name, cpf, email, password, description, cell_phone, birthday, address})
+
+            return res.status(201).json({
+                message:"User updated!",
+                user: {...newUser}
+            })
+
+        } catch (err) {
+            if (err instanceof Error) {
+                return res.status(401).send({
+                  error: err.name,
+                  message: err.message,
+                });
+              }
+        }
+
+
+    }
+
+    static async delete(req:Request, res:Response){
+        try {
+            const globalEmail = req.userEmail
+
+            const deletedUser = await UserMainService.userDeleteService(globalEmail)
+
+            return res.status(200).json({
+                message: `User deleted!` 
+            })
+
+        }catch (err) {
+            if (err instanceof Error) {
+                return res.status(401).send({
+                  error: err.name,
+                  message: err.message,
+                });
+              }
+
+
+    } 
+
+    }
+
+
 }

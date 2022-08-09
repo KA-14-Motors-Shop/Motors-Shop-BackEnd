@@ -8,9 +8,9 @@ export const userAuthentication = (req: Request, res:Response, next: NextFunctio
 
         jwt.verify(token as string, process.env.SECRET_KEY as string, (err: any, decoded: any) => {
 
-            // req.id = decoded.id
-            
+            req.userEmail = decoded.email
             next()
+            // request.hack = { id: decoded.id, isAdm: decoded.isAdm }
 
         })
     }  catch (err) {
