@@ -10,6 +10,7 @@ import {
 } from "typeorm";
 import { Address } from "./addresses.entity";
 import { Advertisement } from "./advertisements.entity";
+import { Exclude } from "class-transformer";
 
 export enum UserType {
   BUYER = "buyer",
@@ -35,7 +36,8 @@ export class User {
 
   @Column({ type: "date" })
   birthday: string;
-
+  
+  @Exclude()
   @Column({ type: "varchar", width: 256, nullable: false })
   password: string;
 

@@ -6,6 +6,7 @@ import { Address } from "../../entities/addresses.entity";
 import bcrypt, { hash } from "bcrypt";
 import jwt from "jsonwebtoken"
 import { Advertisement } from "../../entities/advertisements.entity";
+import { instanceToPlain } from "class-transformer";
 
 
 export default class UserMainService {
@@ -43,7 +44,7 @@ static async creationService({name, cpf, email, password, description, cell_phon
         birthday,
         is_active: true,
         address: userAddress,
-        advertisements:[]
+        // advertisements:[]
 
     })
 
@@ -63,7 +64,7 @@ static async listOneService(email:string) {
     })
 
 
-    return user
+    return instanceToPlain(user)
 
 }
 
