@@ -22,3 +22,15 @@ export interface UserLoginParams{
     email:      string
     password:   string
 }
+
+export interface UserUpdateParams {
+    name:        string
+    cpf:         string
+    email:       string
+    password:    string
+    description: string
+    cell_phone:  string
+    birthday:    string
+    address:     AddresCreationParams
+    id: string
+}

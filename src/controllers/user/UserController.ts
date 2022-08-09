@@ -1,11 +1,13 @@
 import {Request, Response} from "express"
-import { array } from "yup"
 import { AppDataSource } from "../../data-source"
 import { User } from "../../entities/users.entity"
-import UserMainService from "../../services/user/user.service"
-// import UserMainService from "../../services/user/userCreate.service"
+import UserDeleteService from "../../services/user/useDelete.service"
+import UserCreateService from "../../services/user/userCreate.service"
+// import UserCreateService from "../../services/user/userCreate.service"
+import UserListService from "../../services/user/userList.service"
+import UserLoginService from "../../services/user/userLogin.service"
+import UserUpdateService from "../../services/user/userUpdate.service"
 
-import userListOneService from "../../services/user/userListOne.service"
 
 export default class UserController {
 
@@ -14,7 +16,7 @@ export default class UserController {
         try{
             const {name, cpf, email, password, description, cell_phone,birthday, address} = req.body
 
-            const newUser = await UserMainService.creationService({name,cpf,email,password,description,cell_phone,birthday,address})
+            const newUser = await UserCreateService.creationService({name,cpf,email,password,description,cell_phone,birthday,address})
 
             return res.status(201).send(newUser)
 
@@ -53,9 +55,9 @@ export default class UserController {
         try{
             const {email, password} = req.body
 
-            const token = await  UserMainService.userLoginService({email, password})
+            const token = await  UserLoginService.userLoginService({email, password})
 
-            return res.status(201).json(token)
+            return res.status(201).json({Token_JWT:token})
         } catch(err) {
             if (err instanceof Error) {
 
@@ -73,7 +75,7 @@ export default class UserController {
         try{
             const globalEmail = req.userEmail
     
-            const uniqueUser = await UserMainService.listOneService(globalEmail)
+            const uniqueUser = await UserListService.listOneService(globalEmail)
 
             return res.status(200).send(uniqueUser)
 
@@ -91,16 +93,14 @@ export default class UserController {
 
     static async update (req:Request, res:Response){
         try {
-            const globalEmail = req.userEmail
+            const globalId = req.userId
 
-            const {name, cpf, email, password, description, cell_phone, birthday, address} = req.body
-
-            if (globalEmail !== email) {
-                throw new Error("You have not permission!")
-            }
+            const {name, cpf, email, password, description, cell_phone, birthday, address,id} = req.body
 
 
-            const newUser = await UserMainService.userUpdateService({name, cpf, email, password, description, cell_phone, birthday, address})
+
+
+            const newUser = await UserUpdateService.userUpdateService({name, cpf, email, password, description, cell_phone, birthday, address,id})
 
             return res.status(201).json({
                 message:"User updated!",
@@ -123,7 +123,7 @@ export default class UserController {
         try {
             const globalEmail = req.userEmail
 
-            const deletedUser = await UserMainService.userDeleteService(globalEmail)
+            const deletedUser = await UserDeleteService.userDeleteService(globalEmail)
 
             return res.status(200).json({
                 message: `User deleted!` 
