@@ -25,7 +25,11 @@ userRouter.get("/users", UserController.index);
 //lista o perfil do usuário
 userRouter.get("/users/me", userAuthentication, UserController.indexMyProfile);
 //lista um user pelo id.
-userRouter.get("/users/:id",userAuthentication, UserController.indexOneProfilePerId)
+userRouter.get(
+  "/users/:id",
+  userAuthentication,
+  UserController.indexOneProfilePerId
+);
 //update user
 userRouter.patch("/users", userAuthentication, UserController.update);
 //delete
