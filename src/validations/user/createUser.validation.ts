@@ -33,7 +33,9 @@ export const addressSchemaValidator = async(req: Request, res:Response, next:Nex
         await schema.validate(req.body.address, {abortEarly:false})
         
         return next()
-    } catch(err) {
-        return res.status(400).json({ err});
+    } catch(err:any) {
+        // console.log(err.errors)
+        const errors = err.errors
+        return res.status(400).json({ errors});
     }
 }
