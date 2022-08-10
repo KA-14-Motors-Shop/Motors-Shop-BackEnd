@@ -17,7 +17,7 @@ export default class AdvertisementController {
       is_active,
       images,
     } = req.body;
-
+    const { userEmail } = req;
     const ad = await CreateAdvertisementService.execute({
       type,
       title,
@@ -28,6 +28,7 @@ export default class AdvertisementController {
       vehicle_type,
       is_active,
       images,
+      userEmail,
     });
 
     return res.status(201).json(ad);

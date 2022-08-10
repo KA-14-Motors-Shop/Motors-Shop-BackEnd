@@ -5,6 +5,7 @@ import {
 } from "../../entities/advertisements.entity";
 import { AppDataSource } from "../../data-source";
 import { Image } from "../../entities/images.entity";
+import { User } from "../../entities/users.entity";
 
 interface AdDataParams {
   type: AdvertisementType;
@@ -16,13 +17,19 @@ interface AdDataParams {
   vehicle_type: VehicleType;
   is_active: boolean;
   images: Image[];
+  userEmail: string;
 }
 
 export default class CreateAdvertisementService {
   static async execute(data: AdDataParams) {
     const adRepo = AppDataSource.getRepository(Advertisement);
     const imgRepo = AppDataSource.getRepository(Image);
+    const userRepo = AppDataSource.getRepository(User);
+
+    const owner = await userRepo.findOne({ where: { email: data.userEmail } });
+
     const ad = adRepo.create(data);
+    if (owner) ad.owner = owner;
     await adRepo.save(ad);
 
     data.images.forEach(async (img) => {
