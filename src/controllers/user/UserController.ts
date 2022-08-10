@@ -5,6 +5,7 @@ import UserDeleteService from "../../services/user/useDelete.service"
 import UserCreateService from "../../services/user/userCreate.service"
 // import UserCreateService from "../../services/user/userCreate.service"
 import UserListService from "../../services/user/userList.service"
+import UserListOneProfile from "../../services/user/userListOne.service"
 import UserLoginService from "../../services/user/userLogin.service"
 import UserUpdateService from "../../services/user/userUpdate.service"
 
@@ -70,12 +71,12 @@ export default class UserController {
 
     }
 
-    static async indexOne(req:Request, res:Response){
+    static async indexMyProfile(req:Request, res:Response){
 
         try{
             const globalEmail = req.userEmail
     
-            const uniqueUser = await UserListService.listOneService(globalEmail)
+            const uniqueUser = await UserListService.listMyProfileService(globalEmail)
 
             return res.status(200).send(uniqueUser)
 
@@ -89,6 +90,27 @@ export default class UserController {
             }
 
         }
+    }
+
+    static async indexOneProfilePerId(req:Request, res:Response){
+
+        try {
+
+            const {id} = req.params
+
+            const listedUser = await UserListOneProfile.userListOne(id)
+
+            return res.status(200).send(listedUser)
+
+        } catch (err) {
+            if (err instanceof Error) {
+                return res.status(404).send({
+                    "error": err.name,
+                    "message": err.message
+                })
+            }
+        }
+
     }
 
     static async update (req:Request, res:Response){
