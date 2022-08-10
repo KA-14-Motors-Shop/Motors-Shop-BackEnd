@@ -2,20 +2,22 @@ import { AppDataSource } from "../../data-source";
 import { User } from "../../entities/users.entity";
 import { instanceToPlain } from "class-transformer";
 
-export default class UserListService {
 
-    static async listMyProfileService(email:string) {
+export default class UserListOneProfile {
+
+    static async userListOne(id:string) {
+
         const userRepository = AppDataSource.getRepository(User)
-    
-        const user = await userRepository.findOne({
+
+        const userListed = await userRepository.findOne({
             where:{
-                email
+                id,
             }
         })
-    
-    
-        return instanceToPlain(user)
-    
+
+        return instanceToPlain(userListed)
+
     }
+
 
 }
