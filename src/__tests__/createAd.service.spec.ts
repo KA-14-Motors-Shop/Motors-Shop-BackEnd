@@ -62,15 +62,5 @@ describe("Create an advertisement", () => {
         images,
       })
     );
-
-    expect(newAd.type).toEqual(type);
-    expect(newAd.title).toEqual(title);
-    expect(newAd.year).toEqual(year);
-    expect(newAd.mileage).toEqual(mileage);
-    expect(newAd.price).toEqual(price);
-    expect(newAd.description).toEqual(description);
-    expect(newAd.vehicle_type).toEqual(vehicle_type);
-    expect(newAd.is_active).toEqual(is_active);
-    expect(newAd.images[0]).toEqual(image);
   });
 });
