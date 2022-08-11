@@ -6,6 +6,7 @@ import {
 import { AppDataSource } from "../../data-source";
 import { Image } from "../../entities/images.entity";
 import { User } from "../../entities/users.entity";
+import AppError from "../../errors/AppError";
 
 interface AdDataParams {
   type: AdvertisementType;
@@ -29,7 +30,8 @@ export default class CreateAdvertisementService {
     const owner = await userRepo.findOne({ where: { email: data.userEmail } });
 
     const ad = adRepo.create(data);
-    if (owner) ad.owner = owner;
+    if (!owner) throw new AppError("Invalid user", 400);
+    ad.owner = owner;
     await adRepo.save(ad);
 
     data.images.forEach(async (img) => {
