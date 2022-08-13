@@ -26,8 +26,8 @@ describe("Create an advertisement", () => {
   test("Should insert the new ad in the database", async () => {
     const owner = await UserCreateService.creationService({
       name: "test",
-      cpf: "1234",
-      email: "test2@mail.com",
+      cpf: "123456",
+      email: "test@mail.com",
       password: "1234",
       description: "aylmao",
       cell_phone: "12345",
@@ -52,7 +52,7 @@ describe("Create an advertisement", () => {
     const vehicle_type = VehicleType.CAR;
     const is_active = true;
     const images = [image];
-    const userEmail = "test2@mail.com";
+    const userEmail = "test@mail.com";
 
     const newAd = await CreateAdvertisementService.execute({
       type,
