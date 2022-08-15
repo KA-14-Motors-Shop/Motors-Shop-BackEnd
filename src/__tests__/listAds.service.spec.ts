@@ -18,7 +18,7 @@ describe("List advertisements", () => {
     await connection.destroy().catch((err) => console.log(err));
   });
 
-  test("Should list all advertisements", async () => {
+  it("Should list all advertisements", async () => {
     const adList = await ListAdvertisementsService.execute();
     expect(adList).toHaveProperty("map");
   });

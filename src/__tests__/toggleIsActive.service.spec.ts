@@ -9,7 +9,7 @@ import CreateAdvertisementService from "../services/advertisement/CreateAdvertis
 import ToggleIsActiveAdService from "../services/advertisement/ToggleIsActiveAd.service";
 import UserCreateService from "../services/user/userCreate.service";
 
-describe("Toggle an advertisement is active status", () => {
+describe("Should toggle an advertisement is active status", () => {
   let connection: DataSource;
 
   beforeAll(async () => {

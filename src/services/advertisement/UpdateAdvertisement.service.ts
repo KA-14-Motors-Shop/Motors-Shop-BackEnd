@@ -10,15 +10,15 @@ import AppError from "../../errors/AppError";
 
 interface AdUpdateParams {
   ad_id: string;
-  type: AdvertisementType;
-  title: string;
-  year: number;
-  mileage: number;
-  price: number;
-  description: string;
-  vehicle_type: VehicleType;
-  images: Image[];
-  isAddingImage: boolean;
+  type?: AdvertisementType;
+  title?: string;
+  year?: number;
+  mileage?: number;
+  price?: number;
+  description?: string;
+  vehicle_type?: VehicleType;
+  images?: Image[];
+  isAddingImage?: boolean;
 }
 
 export default class UpdateAdvertisementService {

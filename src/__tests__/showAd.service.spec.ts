@@ -25,7 +25,7 @@ describe("Show an advertisement", () => {
     await connection.destroy().catch((err) => console.log(err));
   });
 
-  test("Should return the ad corresponding to an id", async () => {
+  it("Should return the ad corresponding to an id", async () => {
     const owner = await UserCreateService.creationService({
       name: "test",
       cpf: "12345",

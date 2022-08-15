@@ -6,9 +6,10 @@ import {
 } from "../entities/advertisements.entity";
 import { Image } from "../entities/images.entity";
 import CreateAdvertisementService from "../services/advertisement/CreateAdvertisement.service";
+import UpdateAdvertisementService from "../services/advertisement/UpdateAdvertisement.service";
 import UserCreateService from "../services/user/userCreate.service";
 
-describe("Create an advertisement", () => {
+describe("Updating an advertisement", () => {
   let connection: DataSource;
 
   beforeAll(async () => {
@@ -24,7 +25,7 @@ describe("Create an advertisement", () => {
     await connection.destroy().catch((err) => console.log(err));
   });
 
-  it("Should insert the new ad in the database", async () => {
+  it("Should update an ad", async () => {
     const owner = await UserCreateService.creationService({
       name: "test",
       cpf: "123456",
@@ -68,20 +69,21 @@ describe("Create an advertisement", () => {
       userEmail,
     });
 
-    expect(newAd).toEqual(
-      expect.objectContaining({
-        type,
-        title,
-        year,
-        mileage,
-        price,
-        description,
-        vehicle_type,
-        is_active,
-        images,
-      })
-    );
+    const updateData = {
+      ad_id: newAd.id,
+      type: AdvertisementType.AUCTION,
+      title: "test title update",
+      year: 2001,
+      mileage: 10000,
+      price: 40000,
+    };
 
-    expect(newAd.owner.id).toBe(owner.id);
+    const updatedAd = await UpdateAdvertisementService.execute(updateData);
+
+    expect(updatedAd.type).toBe(AdvertisementType.AUCTION);
+    expect(updatedAd.title).toBe(updateData.title);
+    expect(updatedAd.year).toBe(updateData.year);
+    expect(updatedAd.mileage).toBe(updateData.mileage);
+    expect(updatedAd.price).toBe(updateData.price);
   });
 });
