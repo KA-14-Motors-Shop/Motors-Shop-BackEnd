@@ -20,7 +20,8 @@ describe("Create an advertisement", () => {
   });
 
   afterAll(async () => {
-    await connection.destroy();
+    await connection.dropDatabase();
+    await connection.destroy().catch((err) => console.log(err));
   });
 
   test("Should insert the new ad in the database", async () => {

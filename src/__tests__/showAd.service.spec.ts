@@ -21,7 +21,8 @@ describe("Show an advertisement", () => {
   });
 
   afterAll(async () => {
-    await connection.destroy();
+    await connection.dropDatabase();
+    await connection.destroy().catch((err) => console.log(err));
   });
 
   test("Should return the ad corresponding to an id", async () => {

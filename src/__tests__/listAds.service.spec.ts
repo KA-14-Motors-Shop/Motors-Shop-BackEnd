@@ -14,7 +14,8 @@ describe("List advertisements", () => {
   });
 
   afterAll(async () => {
-    await connection.destroy();
+    await connection.dropDatabase();
+    await connection.destroy().catch((err) => console.log(err));
   });
 
   test("Should list all advertisements", async () => {

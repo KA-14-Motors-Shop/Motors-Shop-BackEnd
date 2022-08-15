@@ -21,7 +21,8 @@ describe("Toggle an advertisement is active status", () => {
   });
 
   afterAll(async () => {
-    await connection.destroy();
+    await connection.dropDatabase();
+    await connection.destroy().catch((err) => console.log(err));
   });
 
   test("Should toggle is active of an ad", async () => {
