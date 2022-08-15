@@ -49,7 +49,10 @@ export default class UpdateAdvertisementService {
           await adRepo.save(ad);
         });
       } else {
-        ad.images = []; //TODO: FAZER DELEÇÃO UM UM POR UM COM O DATA SOURCE E FOR EACH
+        ad.images.forEach(async (img) => {
+          await imgRepo.remove(img);
+        });
+        ad.images = [];
         data.images.forEach(async (img) => {
           const image = imgRepo.create(img);
           ad.images = [...ad.images, image];
