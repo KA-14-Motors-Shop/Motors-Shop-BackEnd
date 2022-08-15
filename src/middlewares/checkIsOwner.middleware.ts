@@ -2,7 +2,6 @@ import { AppDataSource } from "../data-source";
 import { User } from "../entities/users.entity";
 import { Request, Response, NextFunction } from "express";
 import { Advertisement } from "../entities/advertisements.entity";
-import AppError from "../errors/AppError";
 
 export const checkIsOwner = async (
   req: Request,
