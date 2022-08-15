@@ -16,6 +16,12 @@ export const checkIsOwner = async (
   const user = await userRepo.findOne({ where: { email: req.userEmail } });
   const ad = await adRepo.findOne({ where: { id: ad_id } });
 
+  if (!ad) {
+    return res
+      .status(404)
+      .json({ status: "error", code: 404, message: "Ad not found" });
+  }
+
   if (user?.advertisements.some((elem) => elem.id === ad!.id)) {
     next();
   } else {
