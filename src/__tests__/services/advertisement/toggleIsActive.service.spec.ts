@@ -1,15 +1,15 @@
 import { DataSource } from "typeorm";
-import { AppDataSource } from "../data-source";
+import { AppDataSource } from "../../../data-source";
 import {
   AdvertisementType,
   VehicleType,
-} from "../entities/advertisements.entity";
-import { Image } from "../entities/images.entity";
-import CreateAdvertisementService from "../services/advertisement/CreateAdvertisement.service";
-import ShowAdvertisementService from "../services/advertisement/ShowAdvertisement.service";
-import UserCreateService from "../services/user/userCreate.service";
+} from "../../../entities/advertisements.entity";
+import { Image } from "../../../entities/images.entity";
+import CreateAdvertisementService from "../../../services/advertisement/CreateAdvertisement.service";
+import ToggleIsActiveAdService from "../../../services/advertisement/ToggleIsActiveAd.service";
+import UserCreateService from "../../../services/user/userCreate.service";
 
-describe("Show an advertisement", () => {
+describe("Should toggle an advertisement is active status", () => {
   beforeAll(async () => {
     await AppDataSource.initialize().catch((err) => console.log(err));
   });
@@ -17,14 +17,15 @@ describe("Show an advertisement", () => {
     await AppDataSource.dropDatabase();
     await AppDataSource.destroy().catch((err) => console.log(err));
   });
-  it("Should return the ad corresponding to an id", async () => {
+
+  it("Should toggle is active of an ad", async () => {
     const owner = await UserCreateService.creationService({
       name: "test",
-      cpf: "12345",
-      email: "test2@mail.com",
+      cpf: "1234560",
+      email: "test3@mail.com",
       password: "1234",
       description: "aylmao",
-      cell_phone: "02345",
+      cell_phone: "0123456",
       birthday: "1999-01-01",
       address: {
         cep: "123456",
@@ -46,7 +47,7 @@ describe("Show an advertisement", () => {
     const vehicle_type = VehicleType.CAR;
     const is_active = true;
     const images = [image];
-    const userEmail = "test2@mail.com";
+    const userEmail = "test3@mail.com";
 
     const newAd = await CreateAdvertisementService.execute({
       type,
@@ -61,8 +62,8 @@ describe("Show an advertisement", () => {
       userEmail,
     });
 
-    const showAd = await ShowAdvertisementService.execute(newAd.id);
-    expect(showAd!.id).toEqual(newAd.id);
-    expect(showAd!.title).toEqual(newAd.title);
+    expect(newAd.is_active).toBe(true);
+    const toggleAd = await ToggleIsActiveAdService.execute(newAd.id);
+    expect(toggleAd?.is_active).toBe(false);
   });
 });

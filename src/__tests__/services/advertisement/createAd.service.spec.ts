@@ -1,15 +1,14 @@
 import { DataSource } from "typeorm";
-import { AppDataSource } from "../data-source";
+import { AppDataSource } from "../../../data-source";
 import {
   AdvertisementType,
   VehicleType,
-} from "../entities/advertisements.entity";
-import { Image } from "../entities/images.entity";
-import CreateAdvertisementService from "../services/advertisement/CreateAdvertisement.service";
-import ToggleIsActiveAdService from "../services/advertisement/ToggleIsActiveAd.service";
-import UserCreateService from "../services/user/userCreate.service";
+} from "../../../entities/advertisements.entity";
+import { Image } from "../../../entities/images.entity";
+import CreateAdvertisementService from "../../../services/advertisement/CreateAdvertisement.service";
+import UserCreateService from "../../../services/user/userCreate.service";
 
-describe("Should toggle an advertisement is active status", () => {
+describe("Create an advertisement", () => {
   beforeAll(async () => {
     await AppDataSource.initialize().catch((err) => console.log(err));
   });
@@ -18,14 +17,14 @@ describe("Should toggle an advertisement is active status", () => {
     await AppDataSource.destroy().catch((err) => console.log(err));
   });
 
-  it("Should toggle is active of an ad", async () => {
+  it("Should insert the new ad in the database", async () => {
     const owner = await UserCreateService.creationService({
       name: "test",
-      cpf: "1234560",
-      email: "test3@mail.com",
+      cpf: "123456",
+      email: "test@mail.com",
       password: "1234",
       description: "aylmao",
-      cell_phone: "0123456",
+      cell_phone: "12345",
       birthday: "1999-01-01",
       address: {
         cep: "123456",
@@ -47,7 +46,7 @@ describe("Should toggle an advertisement is active status", () => {
     const vehicle_type = VehicleType.CAR;
     const is_active = true;
     const images = [image];
-    const userEmail = "test3@mail.com";
+    const userEmail = "test@mail.com";
 
     const newAd = await CreateAdvertisementService.execute({
       type,
@@ -62,8 +61,20 @@ describe("Should toggle an advertisement is active status", () => {
       userEmail,
     });
 
-    expect(newAd.is_active).toBe(true);
-    const toggleAd = await ToggleIsActiveAdService.execute(newAd.id);
-    expect(toggleAd?.is_active).toBe(false);
+    expect(newAd).toEqual(
+      expect.objectContaining({
+        type,
+        title,
+        year,
+        mileage,
+        price,
+        description,
+        vehicle_type,
+        is_active,
+        images,
+      })
+    );
+
+    expect(newAd.owner.id).toBe(owner.id);
   });
 });

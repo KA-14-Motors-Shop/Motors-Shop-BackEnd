@@ -1,6 +1,6 @@
 import { DataSource } from "typeorm";
-import { AppDataSource } from "../data-source";
-import ListAdvertisementsService from "../services/advertisement/ListAdvertisements.service";
+import { AppDataSource } from "../../../data-source";
+import ListAdvertisementsService from "../../../services/advertisement/ListAdvertisements.service";
 
 describe("List advertisements", () => {
   beforeAll(async () => {

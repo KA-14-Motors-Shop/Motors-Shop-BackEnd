@@ -1,8 +1,8 @@
 import request from "supertest";
-import app from "../app";
-import { AppDataSource } from "../data-source";
-import UserCreateService from "../services/user/userCreate.service";
-import UserLoginService from "../services/user/userLogin.service";
+import app from "../../../app";
+import { AppDataSource } from "../../../data-source";
+import UserCreateService from "../../../services/user/userCreate.service";
+import UserLoginService from "../../../services/user/userLogin.service";
 
 describe("Testing ad routes", () => {
   beforeAll(async () => {
