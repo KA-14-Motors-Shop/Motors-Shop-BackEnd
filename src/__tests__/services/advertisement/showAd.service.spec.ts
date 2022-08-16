@@ -1,30 +1,22 @@
 import { DataSource } from "typeorm";
-import { AppDataSource } from "../data-source";
+import { AppDataSource } from "../../../data-source";
 import {
   AdvertisementType,
   VehicleType,
-} from "../entities/advertisements.entity";
-import { Image } from "../entities/images.entity";
-import CreateAdvertisementService from "../services/advertisement/CreateAdvertisement.service";
-import ShowAdvertisementService from "../services/advertisement/ShowAdvertisement.service";
-import UserCreateService from "../services/user/userCreate.service";
+} from "../../../entities/advertisements.entity";
+import { Image } from "../../../entities/images.entity";
+import CreateAdvertisementService from "../../../services/advertisement/CreateAdvertisement.service";
+import ShowAdvertisementService from "../../../services/advertisement/ShowAdvertisement.service";
+import UserCreateService from "../../../services/user/userCreate.service";
 
 describe("Show an advertisement", () => {
-  let connection: DataSource;
-
   beforeAll(async () => {
-    await AppDataSource.initialize()
-      .then((res) => (connection = res))
-      .catch((err) => {
-        console.error("Error during Data Source initialization", err);
-      });
+    await AppDataSource.initialize().catch((err) => console.log(err));
   });
-
   afterAll(async () => {
-    await connection.dropDatabase();
-    await connection.destroy().catch((err) => console.log(err));
+    await AppDataSource.dropDatabase();
+    await AppDataSource.destroy().catch((err) => console.log(err));
   });
-
   it("Should return the ad corresponding to an id", async () => {
     const owner = await UserCreateService.creationService({
       name: "test",
