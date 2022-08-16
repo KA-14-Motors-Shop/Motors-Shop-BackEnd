@@ -3,19 +3,15 @@ import { User } from "../../entities/users.entity";
 import { instanceToPlain } from "class-transformer";
 
 export default class UserListService {
+  static async listMyProfileService(email: string) {
+    const userRepository = AppDataSource.getRepository(User);
 
-    static async listMyProfileService(email:string) {
-        const userRepository = AppDataSource.getRepository(User)
-    
-        const user = await userRepository.findOne({
-            where:{
-                email
-            }
-        })
-    
-    
-        return instanceToPlain(user)
-    
-    }
+    const user = await userRepository.findOne({
+      where: {
+        email,
+      },
+    });
 
+    return instanceToPlain(user);
+  }
 }
