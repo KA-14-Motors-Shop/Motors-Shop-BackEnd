@@ -17,27 +17,33 @@ interface AdDataParams {
   description: string;
   vehicle_type: VehicleType;
   is_active: boolean;
-  images: Image[];
-  userEmail: string;
 }
 
 export default class CreateAdvertisementService {
-  static async execute(data: AdDataParams) {
+  static async execute(
+    data: AdDataParams,
+    userEmail: string,
+    images: string[]
+  ) {
     const adRepo = AppDataSource.getRepository(Advertisement);
     const imgRepo = AppDataSource.getRepository(Image);
     const userRepo = AppDataSource.getRepository(User);
 
-    const owner = await userRepo.findOne({ where: { email: data.userEmail } });
+    const owner = await userRepo.findOne({ where: { email: userEmail } });
+
+    if (!owner) throw new AppError("Invalid user", 400);
 
     const ad = adRepo.create(data);
-    if (!owner) throw new AppError("Invalid user", 400);
     ad.owner = owner;
     await adRepo.save(ad);
 
-    data.images.forEach(async (img) => {
-      const image = imgRepo.create(img);
-      image.advertisement = ad;
-      await imgRepo.save(image);
+    images.forEach(async (img) => {
+      const vehicleImage = new Image();
+      vehicleImage.url = img;
+      vehicleImage.advertisement = ad;
+
+      const newImage = imgRepo.create(vehicleImage);
+      await imgRepo.save(newImage);
     });
 
     return ad;
