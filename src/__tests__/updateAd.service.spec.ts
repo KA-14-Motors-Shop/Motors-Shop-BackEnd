@@ -10,19 +10,12 @@ import UpdateAdvertisementService from "../services/advertisement/UpdateAdvertis
 import UserCreateService from "../services/user/userCreate.service";
 
 describe("Updating an advertisement", () => {
-  let connection: DataSource;
-
   beforeAll(async () => {
-    await AppDataSource.initialize()
-      .then((res) => (connection = res))
-      .catch((err) => {
-        console.error("Error during Data Source initialization", err);
-      });
+    await AppDataSource.initialize().catch((err) => console.log(err));
   });
-
   afterAll(async () => {
-    await connection.dropDatabase();
-    await connection.destroy().catch((err) => console.log(err));
+    await AppDataSource.dropDatabase();
+    await AppDataSource.destroy().catch((err) => console.log(err));
   });
 
   it("Should update an ad", async () => {

@@ -10,22 +10,15 @@ import ToggleIsActiveAdService from "../services/advertisement/ToggleIsActiveAd.
 import UserCreateService from "../services/user/userCreate.service";
 
 describe("Should toggle an advertisement is active status", () => {
-  let connection: DataSource;
-
   beforeAll(async () => {
-    await AppDataSource.initialize()
-      .then((res) => (connection = res))
-      .catch((err) => {
-        console.error("Error during Data Source initialization", err);
-      });
+    await AppDataSource.initialize().catch((err) => console.log(err));
   });
-
   afterAll(async () => {
-    await connection.dropDatabase();
-    await connection.destroy().catch((err) => console.log(err));
+    await AppDataSource.dropDatabase();
+    await AppDataSource.destroy().catch((err) => console.log(err));
   });
 
-  test("Should toggle is active of an ad", async () => {
+  it("Should toggle is active of an ad", async () => {
     const owner = await UserCreateService.creationService({
       name: "test",
       cpf: "1234560",

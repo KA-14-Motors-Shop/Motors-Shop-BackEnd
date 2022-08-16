@@ -10,21 +10,13 @@ import ShowAdvertisementService from "../services/advertisement/ShowAdvertisemen
 import UserCreateService from "../services/user/userCreate.service";
 
 describe("Show an advertisement", () => {
-  let connection: DataSource;
-
   beforeAll(async () => {
-    await AppDataSource.initialize()
-      .then((res) => (connection = res))
-      .catch((err) => {
-        console.error("Error during Data Source initialization", err);
-      });
+    await AppDataSource.initialize().catch((err) => console.log(err));
   });
-
   afterAll(async () => {
-    await connection.dropDatabase();
-    await connection.destroy().catch((err) => console.log(err));
+    await AppDataSource.dropDatabase();
+    await AppDataSource.destroy().catch((err) => console.log(err));
   });
-
   it("Should return the ad corresponding to an id", async () => {
     const owner = await UserCreateService.creationService({
       name: "test",
