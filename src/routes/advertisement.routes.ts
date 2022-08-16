@@ -4,13 +4,22 @@ import { expressYupMiddleware } from "express-yup-middleware";
 import createAdvertisementSchema from "../validations/advertisement/createAdvertisement.validation";
 import { userAuthentication } from "../middlewares/user/authUser.middleware";
 import { checkIsOwner } from "../middlewares/checkIsOwner.middleware";
+import multer from "multer";
+import { uploadImage } from "../services/firebase/firebase";
 
 const adRouter = Router();
 
+const Multer = multer({
+  storage: multer.memoryStorage(),
+  limits: { fileSize: 2048 * 2048 },
+});
+
 adRouter.post(
   "/",
-  expressYupMiddleware({ schemaValidator: createAdvertisementSchema }),
+  Multer.array("image"),
+  // expressYupMiddleware({ schemaValidator: createAdvertisementSchema }),
   userAuthentication,
+  uploadImage,
   AdvertisimentController.store
 );
 adRouter.get("/", AdvertisimentController.index);

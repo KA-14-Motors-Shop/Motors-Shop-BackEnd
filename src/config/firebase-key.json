@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "motors-shop",
+  "private_key_id": "95855b859633ee6f8e9b1a2ee69607652587b69e",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCh6iJBDxe+HHVM\nCd+P+ouCDJyFhXTN76kxOS9MVPI3xlas8BuT6rvkAG6BPgrXmsG2VlprZHqE7CwR\nqxNDVj7sU0m8h8KracnCfGEWsLNXcnIMKUOcevrV0jGX5WjvFtHBRM2kBdGnhomq\nlaDBQVS2/eRaP9v4/prNVK2k19bBrVeHgvGAx9sCWJLTCxH1yg1ySXWL4AjA9iHr\nSIXCkCMfie190pDMOdX34gzwGMcySuFU7DoNqYjKBToqwYrGueKOEpd4On8Vy8d5\nudcTRQd0mhLXp2lI98/b0tJsQLzB0WYr4LfgNrJV3adpRx2bRx3CHiukLnN0Lvy3\nkuPgHptjAgMBAAECggEAT22RhzPVtFu2iOoxAyrnxBDWucNptNqUN8LzOnFTb1v7\nShPxm2Lj8CnsC7e5TuIqk/2RlqwwVEOdLL+tD/Pfo0QKYJOCwl7/bEpiwGRHXicU\n3nVhpwJHSZw22updyyf5FuPfM07tdc6Qex+ywAsB+VDcdA9upBuWKhMXqc1+Gvzb\ntT9vQkk10H4d9AenfhCXK8G2UQgfnGHyUnpJnWmML6Tp6qkJSWExEpeb17BTLmIn\n67zp807EIOby8ZVDdRNZb1gK9+vpw72Fhf955RU+ewAaq6UL+rahpmetTaNNdqwL\naUSaAbJH+jO9f1ANf1HC2kWGfYAc7YMVQCNmHm+5XQKBgQDOonQs8nLPRMVoo5hA\ny+KW4N+KwUfpr6XBWJl74YgIojOyfelyNcBtvEQ9U0H3QAHhhvZcJoYA6q52Wrsu\nT1eAmG8K2dOsu4W0IAE8A9nyyXTuo0uXTn+njWwTrenbTDNv0IZpgO/9jbuyECN1\ncOt7g27//ThLyZraaLOr334jDQKBgQDImKdLjzt05EM+G2rPbhbErSQhbyRXVChA\nRcIc3Foq0+ZODNCRDb7Ff7Z+AOgBSELDDqO6okZYOMCozndqrFq47HdFCJIR9U+m\nFLAI29mfsGhm3fn7++v0HB0ZeBlDhYG5v9788jo0BPuNXpr4ELEY3MhZzOZECGVx\nKnkJv3PcLwKBgDxwVezDqYMoiVk26JSjTg51jc0HBaK7ho8L/DC44dIsp1Rg8cQ/\nJp6yP390d8n7BdHSaQLBHdbszcS+extrh5uMeoZA+mH+o3fxGItWUQxrknEugDCs\nfDgk7GTBLLLBEhZ1dqsrVIbkSu8lO0nhkm8ZHYFwrmO0fz+8+jiecUWNAoGAbbC0\nAqhvLctITeT2MjmT77ZyBGpfJ/XYENVUgS2pjLPUwydUwY0PnbXpl9ttAo5+G2Wc\n+IiWCNX33BcSy901uttrmO9H2NQY2suDO0TlKuJvJJkLgtROQW1CKFQ5FGgj+OvH\nxu+6DgoPeE2cVjvia6MHV7uoytkAh7Je/4qWk3cCgYEAjCB+embJYSu6afWe5lmM\nDRz4/4g6QAALgH65HXTYdTOZUTBm7I+sjcVEXJsoLeOxaFRpzSDLzW9wxvDpjd86\nqVdcRdezRmktmzyWDMTqqL1+DTKMSp8ksjeJrys4+qTnIQ8rs+OMjCc1OHZXidbA\nPuiUmlA8AfJCPUqukzMJvsQ=\n-----END PRIVATE KEY-----\n",
+  "client_email": "firebase-adminsdk-i6b9g@motors-shop.iam.gserviceaccount.com",
+  "client_id": "117052530406586838640",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-i6b9g%40motors-shop.iam.gserviceaccount.com"
+}

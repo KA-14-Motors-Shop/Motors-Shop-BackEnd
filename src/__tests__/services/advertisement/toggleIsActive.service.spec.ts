@@ -1,10 +1,8 @@
-import { DataSource } from "typeorm";
 import { AppDataSource } from "../../../data-source";
 import {
   AdvertisementType,
   VehicleType,
 } from "../../../entities/advertisements.entity";
-import { Image } from "../../../entities/images.entity";
 import CreateAdvertisementService from "../../../services/advertisement/CreateAdvertisement.service";
 import ToggleIsActiveAdService from "../../../services/advertisement/ToggleIsActiveAd.service";
 import UserCreateService from "../../../services/user/userCreate.service";
@@ -36,8 +34,7 @@ describe("Should toggle an advertisement is active status", () => {
         complement: "ay lmao",
       },
     });
-    const image = new Image();
-    image.url = "testurl@img.com";
+
     const type = AdvertisementType.SALE;
     const title = "test title";
     const year = 2000;
@@ -46,21 +43,23 @@ describe("Should toggle an advertisement is active status", () => {
     const description = "test desc";
     const vehicle_type = VehicleType.CAR;
     const is_active = true;
-    const images = [image];
+    const images = ["testurl@img.com"];
     const userEmail = "test3@mail.com";
 
-    const newAd = await CreateAdvertisementService.execute({
-      type,
-      title,
-      year,
-      mileage,
-      price,
-      description,
-      vehicle_type,
-      is_active,
-      images,
+    const newAd = await CreateAdvertisementService.execute(
+      {
+        type,
+        title,
+        year,
+        mileage,
+        price,
+        description,
+        vehicle_type,
+        is_active,
+      },
       userEmail,
-    });
+      images
+    );
 
     expect(newAd.is_active).toBe(true);
     const toggleAd = await ToggleIsActiveAdService.execute(newAd.id);

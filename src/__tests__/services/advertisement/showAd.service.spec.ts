@@ -1,10 +1,8 @@
-import { DataSource } from "typeorm";
 import { AppDataSource } from "../../../data-source";
 import {
   AdvertisementType,
   VehicleType,
 } from "../../../entities/advertisements.entity";
-import { Image } from "../../../entities/images.entity";
 import CreateAdvertisementService from "../../../services/advertisement/CreateAdvertisement.service";
 import ShowAdvertisementService from "../../../services/advertisement/ShowAdvertisement.service";
 import UserCreateService from "../../../services/user/userCreate.service";
@@ -35,8 +33,7 @@ describe("Show an advertisement", () => {
         complement: "ay lmao",
       },
     });
-    const image = new Image();
-    image.url = "testurl@img.com";
+
     const type = AdvertisementType.SALE;
     const title = "test title";
     const year = 2000;
@@ -45,24 +42,26 @@ describe("Show an advertisement", () => {
     const description = "test desc";
     const vehicle_type = VehicleType.CAR;
     const is_active = true;
-    const images = [image];
+    const images = ["testurl@img.com"];
     const userEmail = "test2@mail.com";
 
-    const newAd = await CreateAdvertisementService.execute({
-      type,
-      title,
-      year,
-      mileage,
-      price,
-      description,
-      vehicle_type,
-      is_active,
-      images,
+    const newAd = await CreateAdvertisementService.execute(
+      {
+        type,
+        title,
+        year,
+        mileage,
+        price,
+        description,
+        vehicle_type,
+        is_active,
+      },
       userEmail,
-    });
+      images
+    );
 
     const showAd = await ShowAdvertisementService.execute(newAd.id);
-    expect(showAd!.id).toEqual(newAd.id);
-    expect(showAd!.title).toEqual(newAd.title);
+    expect(showAd?.id).toEqual(newAd.id);
+    expect(showAd?.title).toEqual(newAd.title);
   });
 });

@@ -7,30 +7,13 @@ import UpdateAdvertisementService from "../services/advertisement/UpdateAdvertis
 
 export default class AdvertisementController {
   static async store(req: Request, res: Response) {
-    const {
-      type,
-      title,
-      year,
-      mileage,
-      price,
-      description,
-      vehicle_type,
-      is_active,
-      images,
-    } = req.body;
     const { userEmail } = req;
-    const ad = await CreateAdvertisementService.execute({
-      type,
-      title,
-      year,
-      mileage,
-      price,
-      description,
-      vehicle_type,
-      is_active,
-      images,
+    const { firebaseUrls } = req;
+    const ad = await CreateAdvertisementService.execute(
+      req.body,
       userEmail,
-    });
+      firebaseUrls
+    );
 
     return res.status(201).json(ad);
   }
