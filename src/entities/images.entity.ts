@@ -16,6 +16,9 @@ export class Image {
   @Column({ type: "varchar", width: 1500, nullable: false })
   url: string;
 
+  @Column({ type: "boolean", nullable: false })
+  is_front: boolean;
+
   @CreateDateColumn({
     name: "created_at",
     type: "timestamp",

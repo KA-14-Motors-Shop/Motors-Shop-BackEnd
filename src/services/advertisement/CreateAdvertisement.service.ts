@@ -7,6 +7,7 @@ import { AppDataSource } from "../../data-source";
 import { Image } from "../../entities/images.entity";
 import { User } from "../../entities/users.entity";
 import AppError from "../../errors/AppError";
+import { ImagesRequest } from "../../interfaces/image";
 
 interface AdDataParams {
   type: AdvertisementType;
@@ -23,7 +24,7 @@ export default class CreateAdvertisementService {
   static async execute(
     data: AdDataParams,
     userEmail: string,
-    images: string[]
+    images: ImagesRequest[]
   ) {
     const adRepo = AppDataSource.getRepository(Advertisement);
     const imgRepo = AppDataSource.getRepository(Image);
@@ -39,7 +40,8 @@ export default class CreateAdvertisementService {
 
     for (let i = 0; i < images.length; i++) {
       const vehicleImage = new Image();
-      vehicleImage.url = images[i];
+      vehicleImage.url = images[i].url;
+      vehicleImage.is_front = images[i].is_front;
       vehicleImage.advertisement = ad;
 
       const newImage = imgRepo.create(vehicleImage);

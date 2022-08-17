@@ -1,4 +1,5 @@
 import * as express from "express";
+import { ImagesRequest } from "../../src/interfaces/image";
 
 export declare global {
   namespace Express {
@@ -11,7 +12,7 @@ export declare global {
     }
 
     export interface Request {
-      firebaseUrls: string[];
+      firebaseUrls: ImagesRequest[];
     }
   }
 }

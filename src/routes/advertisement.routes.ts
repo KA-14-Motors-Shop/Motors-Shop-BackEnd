@@ -16,7 +16,7 @@ const Multer = multer({
 
 adRouter.post(
   "/",
-  Multer.fields([{ name: "image" }, { name: "first", maxCount: 1 }]),
+  Multer.fields([{ name: "image" }, { name: "front", maxCount: 1 }]),
   // expressYupMiddleware({ schemaValidator: createAdvertisementSchema }),
   userAuthentication,
   uploadImage,
