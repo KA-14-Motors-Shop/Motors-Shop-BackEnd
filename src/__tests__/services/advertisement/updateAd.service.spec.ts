@@ -43,7 +43,10 @@ describe("Updating an advertisement", () => {
     const description = "test desc";
     const vehicle_type = VehicleType.CAR;
     const is_active = true;
-    const images = ["testurl@img.com"];
+    const images = [
+      { url: "testurl@img.com", is_front: true },
+      { url: "testurl2@img.com", is_front: false },
+    ];
     const userEmail = "test@mail.com";
 
     const newAd = await CreateAdvertisementService.execute(
