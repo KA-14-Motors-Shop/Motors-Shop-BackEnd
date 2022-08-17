@@ -27,13 +27,13 @@ export const uploadImage = (
   response: Response,
   next: NextFunction
 ) => {
-  let image: Express.Multer.File[] | any = request.files;
+  let images: Express.Multer.File[] | any = request.files;
 
-  if (!image) {
+  if (!images) {
     return next();
   }
 
-  const urlImages = image.image.map((element: multerFile) => {
+  const urlImages = images.image.map((element: multerFile) => {
     const fileName = Date.now() + "." + element.originalname.split(".").pop();
     let stringFire = "";
     const file = bucket.file(fileName);
@@ -54,8 +54,28 @@ export const uploadImage = (
       await file.makePublic();
     });
     stream.end(element.buffer);
-    return stringFire;
+    return { url: stringFire, is_front: false };
   });
+
+  const frontImage = images.front[0];
+  const frontName = Date.now() + "." + frontImage.originalname.split(".").pop();
+
+  const file = bucket.file(frontName);
+
+  const stream = file.createWriteStream({
+    metadata: {
+      contentType: frontImage.mimetype,
+    },
+  });
+
+  const stringFire = `https://storage.googleapis.com/${BUCKET}/${frontName}`;
+
+  stream.on("finish", async () => {
+    await file.makePublic();
+  });
+  stream.end(frontImage.buffer);
+
+  urlImages.push({ url: stringFire, is_front: true });
 
   request.firebaseUrls = urlImages;
   next();
