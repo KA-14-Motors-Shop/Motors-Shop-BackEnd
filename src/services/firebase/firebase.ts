@@ -33,7 +33,7 @@ export const uploadImage = (
     return next();
   }
 
-  const urlImages = image?.map((element: multerFile) => {
+  const urlImages = image.image.map((element: multerFile) => {
     const fileName = Date.now() + "." + element.originalname.split(".").pop();
     let stringFire = "";
     const file = bucket.file(fileName);
