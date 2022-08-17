@@ -37,14 +37,14 @@ export default class CreateAdvertisementService {
     ad.owner = owner;
     await adRepo.save(ad);
 
-    images.forEach(async (img) => {
+    for (let i = 0; i < images.length; i++) {
       const vehicleImage = new Image();
-      vehicleImage.url = img;
+      vehicleImage.url = images[i];
       vehicleImage.advertisement = ad;
 
       const newImage = imgRepo.create(vehicleImage);
       await imgRepo.save(newImage);
-    });
+    }
 
     return ad;
   }
