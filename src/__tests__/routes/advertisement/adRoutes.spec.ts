@@ -5,13 +5,13 @@ import UserCreateService from "../../../services/user/userCreate.service";
 import UserLoginService from "../../../services/user/userLogin.service";
 
 describe("Testing ad routes", () => {
-  beforeAll(async () => {
-    await AppDataSource.initialize().catch((err) => console.log(err));
-  });
-  afterAll(async () => {
-    await AppDataSource.dropDatabase();
-    await AppDataSource.destroy().catch((err) => console.log(err));
-  });
+  // beforeAll(async () => {
+  //   await AppDataSource.initialize().catch((err) => console.log(err));
+  // });
+  // afterAll(async () => {
+  //   await AppDataSource.dropDatabase();
+  //   await AppDataSource.destroy().catch((err) => console.log(err));
+  // });
 
   // const getOwner = async () => {
   //   const owner = await UserCreateService.creationService({
