@@ -1,11 +1,11 @@
 import app from "./app";
 import { AppDataSource } from "./data-source";
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3001;
 
 app.get("/", (req, res) => {
-  return res.send("App is running!")
-})
+  return res.send("App is running!");
+});
 
 app.listen(port, async () => {
   await AppDataSource.initialize()
