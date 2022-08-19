@@ -18,14 +18,18 @@ describe("Testing ad routes", () => {
     await AppDataSource.destroy().catch((err) => console.log(err));
   });
 
-  const getOwner = async () => {
+  const getOwner = async (
+    cpf = "123456",
+    email = "test@mail.com",
+    cell_phone = "12345678"
+  ) => {
     const owner = await UserCreateService.creationService({
       name: "test",
-      cpf: "123456",
-      email: "test@mail.com",
+      cpf,
+      email,
       password: "1234",
       description: "aylmao",
-      cell_phone: "12345",
+      cell_phone,
       birthday: "1999-01-01",
       address: {
         cep: "123456",
@@ -117,5 +121,26 @@ describe("Testing ad routes", () => {
     expect(response.status).toBe(200);
     expect(response.body).toHaveProperty("map");
     expect(response.body[0].id).toEqual(ad.id);
+  });
+
+  it("Should be able to list one specific ad using it's id", async () => {
+    const owner = await getOwner("000001", "test2@mail.com", "999991");
+    const ad = await createAd(
+      AdvertisementType.AUCTION,
+      "testing title",
+      2000,
+      0,
+      40000,
+      "test desc",
+      VehicleType.CAR,
+      true,
+      owner.email
+    );
+    const response = await request(app).get(`/ads/${ad.id}`);
+
+    expect(response.status).toBe(200);
+    expect(response.body.id).toEqual(ad.id);
+    expect(response.body.title).toEqual(ad.title);
+    expect(response.body.description).toEqual(ad.description);
   });
 });
