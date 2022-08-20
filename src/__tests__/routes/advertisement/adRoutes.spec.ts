@@ -5,6 +5,7 @@ import {
   AdvertisementType,
   VehicleType,
 } from "../../../entities/advertisements.entity";
+import { User } from "../../../entities/users.entity";
 import CreateAdvertisementService from "../../../services/advertisement/CreateAdvertisement.service";
 import UserCreateService from "../../../services/user/userCreate.service";
 import UserLoginService from "../../../services/user/userLogin.service";
@@ -44,15 +45,19 @@ describe("Testing ad routes", () => {
     return owner;
   };
 
-  const getToken = async () => {
-    const owner = getOwner();
+  const getToken = async (
+    cpf: string = "123456",
+    email: string = "test@mail.com",
+    cell_phone: string = "12345678"
+  ) => {
+    const owner = await getOwner(cpf, email, cell_phone);
 
     const token = await UserLoginService.userLoginService({
-      email: (await owner).email,
+      email: owner.email,
       password: "1234",
     });
 
-    return token;
+    return [owner.email, token];
   };
 
   const createAd = async (
@@ -142,5 +147,39 @@ describe("Testing ad routes", () => {
     expect(response.body.id).toEqual(ad.id);
     expect(response.body.title).toEqual(ad.title);
     expect(response.body.description).toEqual(ad.description);
+  });
+
+  it("Should be able to toggle an ad's is_active status", async () => {
+    const [ownerEmail, token] = await getToken(
+      "000002",
+      "test3@mail.com",
+      "999992"
+    );
+    const ad = await createAd(
+      AdvertisementType.AUCTION,
+      "testing title",
+      2000,
+      0,
+      40000,
+      "test desc",
+      VehicleType.CAR,
+      true,
+      ownerEmail
+    );
+
+    let response = await request(app)
+      .patch(`/ads/status/${ad.id}`)
+      .set("Authorization", `Bearer ${token}`)
+      .send({});
+
+    expect(response.body.id).toEqual(ad.id);
+    expect(response.body.is_active).toEqual(false);
+
+    response = await request(app)
+      .patch(`/ads/status/${ad.id}`)
+      .set("Authorization", `Bearer ${token}`)
+      .send({});
+
+    expect(response.body.is_active).toEqual(true);
   });
 });
