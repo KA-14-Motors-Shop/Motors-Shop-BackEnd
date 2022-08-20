@@ -21,7 +21,14 @@ export default class ShowAdvertisementService {
 
     return {
       ...ad,
-      owner: { id: adOwner?.id, name: adOwner?.name, email: adOwner?.email },
+      owner: {
+        id: adOwner?.id,
+        name: adOwner?.name,
+        email: adOwner?.email,
+        type: adOwner?.type,
+        description: adOwner?.description,
+        is_active: adOwner?.is_active,
+      },
     };
   }
 }
