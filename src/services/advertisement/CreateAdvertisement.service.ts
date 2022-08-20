@@ -38,11 +38,17 @@ export default class CreateAdvertisementService {
     ad.owner = owner;
     await adRepo.save(ad);
 
+    let adImgs: any[] = [];
+
     for (let i = 0; i < images.length; i++) {
       const vehicleImage = new Image();
       vehicleImage.url = images[i].url;
       vehicleImage.is_front = images[i].is_front;
       vehicleImage.advertisement = ad;
+      adImgs = [
+        ...adImgs,
+        { url: vehicleImage.url, is_front: vehicleImage.is_front },
+      ];
 
       const newImage = imgRepo.create(vehicleImage);
       await imgRepo.save(newImage);
@@ -60,6 +66,7 @@ export default class CreateAdvertisementService {
       is_active: ad.is_active,
       createdAt: ad.createdAt,
       updatedAt: ad.updatedAt,
+      images: adImgs,
       owner: {
         id: owner.id,
         name: owner.name,
