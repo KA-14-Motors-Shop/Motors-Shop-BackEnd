@@ -48,6 +48,29 @@ export default class CreateAdvertisementService {
       await imgRepo.save(newImage);
     }
 
-    return ad;
+    return {
+      id: ad.id,
+      type: ad.type,
+      title: ad.title,
+      year: ad.year,
+      mileage: ad.mileage,
+      price: ad.price,
+      description: ad.description,
+      vehicle_type: ad.vehicle_type,
+      is_active: ad.is_active,
+      createdAt: ad.createdAt,
+      updatedAt: ad.updatedAt,
+      owner: {
+        id: owner.id,
+        name: owner.name,
+        email: owner.email,
+        cpf: owner.cpf,
+        cell_phone: owner.cell_phone,
+        birthday: owner.birthday,
+        description: owner.description,
+        type: owner.type,
+        is_active: owner.is_active,
+      },
+    };
   }
 }
