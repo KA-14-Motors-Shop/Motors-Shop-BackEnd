@@ -77,6 +77,7 @@ export default class CreateAdvertisementService {
         description: owner.description,
         type: owner.type,
         is_active: owner.is_active,
+        address: owner.address,
       },
     };
   }
