@@ -5,7 +5,6 @@ import {
   AdvertisementType,
   VehicleType,
 } from "../../../entities/advertisements.entity";
-import { User } from "../../../entities/users.entity";
 import CreateAdvertisementService from "../../../services/advertisement/CreateAdvertisement.service";
 import UserCreateService from "../../../services/user/userCreate.service";
 import UserLoginService from "../../../services/user/userLogin.service";
