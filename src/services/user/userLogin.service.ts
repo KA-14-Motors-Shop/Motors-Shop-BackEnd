@@ -20,10 +20,6 @@ export default class UserLoginService {
       throw new AppError("User not found!", 404)
     }
 
-    // if (!userAccount) {
-    //   throw new Error("Account not found!");
-    // }
-
     if (!bcrypt.compareSync(password, userAccount.password)) {
       throw new AppError("Wrong Email/Password. I can't say...", 400);
     }
