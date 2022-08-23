@@ -63,7 +63,7 @@ export default class UserController {
   }
 
   static async loginUser(req: Request, res: Response) {
-    try {
+    // try {
       const { email, password } = req.body;
 
       const token = await UserLoginService.userLoginService({
@@ -72,18 +72,18 @@ export default class UserController {
       });
 
       return res.status(201).json({ Token_JWT: token });
-    } catch (err) {
-      if (err instanceof Error) {
-        return res.status(401).send({
-          error: err.name,
-          message: err.message,
-        });
-      }
-    }
+    // } 
+    // catch (err) {
+    //   if (err instanceof Error) {
+    //     return res.status(401).send({
+    //       error: err.name,
+    //       message: err.message,
+    //     });
+    //   }
+    // }
   }
 
   static async indexMyProfile(req: Request, res: Response) {
-    try {
       const globalEmail = req.userEmail;
 
       const uniqueUser = await UserListService.listMyProfileService(
@@ -91,35 +91,36 @@ export default class UserController {
       );
 
       return res.status(200).send(uniqueUser);
-    } catch (err) {
-      if (err instanceof Error) {
-        return res.status(404).send({
-          error: err.name,
-          message: err.message,
-        });
-      }
-    }
+    // catch (err) {
+    //   if (err instanceof Error) {
+    //     return res.status(404).send({
+    //       error: err.name,
+    //       message: err.message,
+    //     });
+    //   }
+    // }
   }
 
   static async indexOneProfilePerId(req: Request, res: Response) {
-    try {
+    // try {
       const { id } = req.params;
 
       const listedUser = await UserListOneProfile.userListOne(id);
 
       return res.status(200).send(listedUser);
-    } catch (err) {
-      if (err instanceof Error) {
-        return res.status(404).send({
-          error: err.name,
-          message: err.message,
-        });
-      }
-    }
+    // } 
+    // catch (err) {
+    //   if (err instanceof Error) {
+    //     return res.status(404).send({
+    //       error: err.name,
+    //       message: err.message,
+    //     });
+    //   }
+    // }
   }
 
   static async update(req: Request, res: Response) {
-    try {
+    // try {
       const globalId = req.userId;
 
       const {
@@ -150,18 +151,19 @@ export default class UserController {
         message: "User updated!",
         user: { ...newUser },
       });
-    } catch (err) {
-      if (err instanceof Error) {
-        return res.status(401).send({
-          error: err.name,
-          message: err.message,
-        });
-      }
-    }
+    // } 
+    // catch (err) {
+    //   if (err instanceof Error) {
+    //     return res.status(401).send({
+    //       error: err.name,
+    //       message: err.message,
+    //     });
+    //   }
+    // }
   }
 
   static async delete(req: Request, res: Response) {
-    try {
+    // try {
       const globalEmail = req.userEmail;
 
       const deletedUser = await UserDeleteService.userDeleteService(
@@ -171,13 +173,14 @@ export default class UserController {
       return res.status(200).json({
         message: `User deleted!`,
       });
-    } catch (err) {
-      if (err instanceof Error) {
-        return res.status(401).send({
-          error: err.name,
-          message: err.message,
-        });
-      }
-    }
+    // } 
+    // catch (err) {
+    //   if (err instanceof Error) {
+    //     return res.status(401).send({
+    //       error: err.name,
+    //       message: err.message,
+    //     });
+    //   }
+    // }
   }
 }

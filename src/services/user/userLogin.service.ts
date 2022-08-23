@@ -3,23 +3,29 @@ import { AppDataSource } from "../../data-source";
 import { User } from "../../entities/users.entity";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import AppError from "../../errors/AppError";
 
 export default class UserLoginService {
   static async userLoginService({ email, password }: UserLoginParams) {
     const userRepository = AppDataSource.getRepository(User);
 
+    
     const userAccount = await userRepository.findOne({
       where: {
         email,
       },
     });
-
-    if (!userAccount) {
-      throw new Error("Account not found!");
+    
+    if (!userAccount) { 
+      throw new AppError("User not found!", 404)
     }
 
+    // if (!userAccount) {
+    //   throw new Error("Account not found!");
+    // }
+
     if (!bcrypt.compareSync(password, userAccount.password)) {
-      throw new Error("Wrong Email/Password. I can't say...");
+      throw new AppError("Wrong Email/Password. I can't say...", 400);
     }
 
     const token = jwt.sign({ email: email }, String(process.env.SECRET_KEY), {

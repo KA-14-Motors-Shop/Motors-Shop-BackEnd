@@ -1,6 +1,7 @@
 import { AppDataSource } from "../../data-source";
 import { User } from "../../entities/users.entity";
 import { instanceToPlain } from "class-transformer";
+import AppError from "../../errors/AppError";
 
 export default class UserListOneProfile {
   static async userListOne(id: string) {
@@ -11,6 +12,10 @@ export default class UserListOneProfile {
         id,
       },
     });
+
+    if (!userListed) { 
+      throw new AppError("User not found!", 404)
+    }
 
     return instanceToPlain(userListed);
   }

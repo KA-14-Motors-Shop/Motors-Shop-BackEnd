@@ -1,5 +1,6 @@
 import { AppDataSource } from "../../data-source";
 import { User } from "../../entities/users.entity";
+import AppError from "../../errors/AppError";
 
 export default class UserDeleteService {
   static async userDeleteService(email: string) {
@@ -10,6 +11,10 @@ export default class UserDeleteService {
         email,
       },
     });
+
+    if (!userToDelete) {
+        throw new AppError("User not found!", 404)
+    }
 
     await userRepository.delete(userToDelete!.id);
 
