@@ -4,6 +4,7 @@ import { User } from "../../entities/users.entity";
 import { Address } from "../../entities/addresses.entity";
 import bcrypt from "bcrypt";
 import { Advertisement } from "../../entities/advertisements.entity";
+import AppError from "../../errors/AppError";
 
 export default class UserUpdateService {
   static async userUpdateService({
@@ -27,7 +28,7 @@ export default class UserUpdateService {
     });
 
     if (!user) {
-      throw new Error("User not found.");
+      throw new AppError("User not found.", 404);
     }
 
     const userAddress = await addresRepository.findOne({
