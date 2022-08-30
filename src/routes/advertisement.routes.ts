@@ -6,6 +6,7 @@ import { userAuthentication } from "../middlewares/user/authUser.middleware";
 import { checkIsOwner } from "../middlewares/checkIsOwner.middleware";
 import multer from "multer";
 import { uploadImage } from "../services/firebase/firebase";
+import adImageRelationMiddleware from "../middlewares/advertisement/adImageRelation.middleware";
 
 const adRouter = Router();
 
@@ -31,6 +32,12 @@ adRouter.patch(
   checkIsOwner,
   AdvertisimentController.update
 );
-adRouter.delete("/:ad_id/image/:img_id", AdvertisimentController.deleteImage);
+adRouter.delete(
+  "/:ad_id/image/:img_id",
+  userAuthentication,
+  checkIsOwner,
+  adImageRelationMiddleware,
+  AdvertisimentController.deleteImage
+);
 
 export default adRouter;

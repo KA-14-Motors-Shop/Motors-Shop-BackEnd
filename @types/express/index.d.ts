@@ -1,4 +1,5 @@
 import * as express from "express";
+import { Advertisement } from "../../src/entities/advertisements.entity";
 import { ImagesRequest } from "../../src/interfaces/image";
 
 export declare global {
@@ -13,6 +14,10 @@ export declare global {
 
     export interface Request {
       firebaseUrls: ImagesRequest[];
+    }
+
+    export interface Request {
+      advertisement: Advertisement;
     }
   }
 }
