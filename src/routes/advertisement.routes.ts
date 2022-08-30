@@ -31,5 +31,6 @@ adRouter.patch(
   checkIsOwner,
   AdvertisimentController.update
 );
+adRouter.delete("/:ad_id/image/:img_id", AdvertisimentController.deleteImage);
 
 export default adRouter;

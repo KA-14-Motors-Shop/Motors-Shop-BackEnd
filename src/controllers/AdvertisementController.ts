@@ -4,6 +4,7 @@ import ListAdvertisementsService from "../services/advertisement/ListAdvertiseme
 import ShowAdvertisementService from "../services/advertisement/ShowAdvertisement.service";
 import ToggleIsActiveAdService from "../services/advertisement/ToggleIsActiveAd.service";
 import UpdateAdvertisementService from "../services/advertisement/UpdateAdvertisement.service";
+import DeleteImageService from "../services/image/DeleteImage.service";
 
 export default class AdvertisementController {
   static async store(req: Request, res: Response) {
@@ -63,5 +64,12 @@ export default class AdvertisementController {
     const { ad_id } = req.params;
     const ad = await ToggleIsActiveAdService.execute(ad_id);
     return res.status(200).json(ad);
+  }
+
+  static async deleteImage(req: Request, res: Response) {
+    const { img_id } = req.params;
+    await DeleteImageService.execute(img_id);
+
+    return res.status(204).json();
   }
 }
