@@ -20,6 +20,7 @@ export default class UserController {
         cell_phone,
         birthday,
         address,
+        type,
       } = req.body;
 
       const newUser = await UserCreateService.creationService({
@@ -31,6 +32,7 @@ export default class UserController {
         cell_phone,
         birthday,
         address,
+        type,
       });
 
       return res.status(201).send(newUser);
@@ -62,85 +64,72 @@ export default class UserController {
   }
 
   static async loginUser(req: Request, res: Response) {
+    const { email, password } = req.body;
 
-      const { email, password } = req.body;
+    const token = await UserLoginService.userLoginService({
+      email,
+      password,
+    });
 
-      const token = await UserLoginService.userLoginService({
-        email,
-        password,
-      });
-
-      return res.status(201).json({ Token_JWT: token });
-
+    return res.status(201).json({ Token_JWT: token });
   }
 
   static async indexMyProfile(req: Request, res: Response) {
-      const globalEmail = req.userEmail;
+    const globalEmail = req.userEmail;
 
-      const uniqueUser = await UserListService.listMyProfileService(
-        globalEmail
-      );
+    const uniqueUser = await UserListService.listMyProfileService(globalEmail);
 
-      return res.status(200).send(uniqueUser);
-
+    return res.status(200).send(uniqueUser);
   }
 
   static async indexOneProfilePerId(req: Request, res: Response) {
+    const { id } = req.params;
 
-      const { id } = req.params;
+    const listedUser = await UserListOneProfile.userListOne(id);
 
-      const listedUser = await UserListOneProfile.userListOne(id);
-
-      return res.status(200).send(listedUser);
-
+    return res.status(200).send(listedUser);
   }
 
   static async update(req: Request, res: Response) {
+    const globalId = req.userId;
 
-      const globalId = req.userId;
+    const {
+      name,
+      cpf,
+      email,
+      password,
+      description,
+      cell_phone,
+      birthday,
+      address,
+      id,
+    } = req.body;
 
-      const {
-        name,
-        cpf,
-        email,
-        password,
-        description,
-        cell_phone,
-        birthday,
-        address,
-        id,
-      } = req.body;
+    const newUser = await UserUpdateService.userUpdateService({
+      name,
+      cpf,
+      email,
+      password,
+      description,
+      cell_phone,
+      birthday,
+      address,
+      id,
+    });
 
-      const newUser = await UserUpdateService.userUpdateService({
-        name,
-        cpf,
-        email,
-        password,
-        description,
-        cell_phone,
-        birthday,
-        address,
-        id,
-      });
-
-      return res.status(201).json({
-        message: "User updated!",
-        user: { ...newUser },
-      });
-
+    return res.status(201).json({
+      message: "User updated!",
+      user: { ...newUser },
+    });
   }
 
   static async delete(req: Request, res: Response) {
+    const globalEmail = req.userEmail;
 
-      const globalEmail = req.userEmail;
+    const deletedUser = await UserDeleteService.userDeleteService(globalEmail);
 
-      const deletedUser = await UserDeleteService.userDeleteService(
-        globalEmail
-      );
-
-      return res.status(200).json({
-        message: `User deleted!`,
-      });
- 
+    return res.status(200).json({
+      message: `User deleted!`,
+    });
   }
 }

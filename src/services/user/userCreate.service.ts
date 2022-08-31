@@ -15,6 +15,7 @@ export default class UserCreateService {
     cell_phone,
     birthday,
     address,
+    type,
   }: UserCreationParams) {
     const userRepository = AppDataSource.getRepository(User);
     const addresRepository = AppDataSource.getRepository(Address);
@@ -45,6 +46,7 @@ export default class UserCreateService {
       birthday,
       is_active: true,
       address: userAddress,
+      type: type,
       // advertisements:[]
     });
 
@@ -52,5 +54,4 @@ export default class UserCreateService {
 
     return user;
   }
-
-  }
+}

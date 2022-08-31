@@ -5,7 +5,7 @@ import createAdvertisementSchema from "../validations/advertisement/createAdvert
 import { userAuthentication } from "../middlewares/user/authUser.middleware";
 import { checkIsOwner } from "../middlewares/checkIsOwner.middleware";
 import multer from "multer";
-import { uploadImage } from "../services/firebase/firebase";
+import { uploadImage, uploadNewImages } from "../services/firebase/firebase";
 import adImageRelationMiddleware from "../middlewares/advertisement/adImageRelation.middleware";
 
 const adRouter = Router();
@@ -28,8 +28,10 @@ adRouter.get("/:ad_id", AdvertisimentController.show);
 adRouter.patch("/status/:ad_id", AdvertisimentController.toggleActive);
 adRouter.patch(
   "/:ad_id",
+  Multer.fields([{ name: "image" }, { name: "front", maxCount: 1 }]),
   userAuthentication,
   checkIsOwner,
+  uploadNewImages,
   AdvertisimentController.update
 );
 adRouter.delete(

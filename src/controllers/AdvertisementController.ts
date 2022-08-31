@@ -31,31 +31,14 @@ export default class AdvertisementController {
   }
 
   static async update(req: Request, res: Response) {
-    const { ad_id } = req.params;
-    const {
-      type,
-      title,
-      year,
-      mileage,
-      price,
-      description,
-      vehicle_type,
-      images,
-      isAddingImage,
-    } = req.body;
+    const { advertisement } = req;
+    const { firebaseUrls } = req;
 
-    const ad = await UpdateAdvertisementService.execute({
-      ad_id,
-      type,
-      title,
-      year,
-      mileage,
-      price,
-      description,
-      vehicle_type,
-      images,
-      isAddingImage,
-    });
+    const ad = await UpdateAdvertisementService.execute(
+      req.body,
+      firebaseUrls,
+      advertisement
+    );
 
     return res.json(ad);
   }
