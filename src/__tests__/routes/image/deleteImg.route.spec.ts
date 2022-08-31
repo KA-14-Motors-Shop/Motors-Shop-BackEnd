@@ -35,7 +35,7 @@ describe("Delete image route", () => {
     const response = await request(app)
       .delete(`/ads/${ad.id}/image/${img.id}`)
       .auth(`${tokenInfos[1]}`, { type: "bearer" });
-
+    console.log(response.body);
     expect(response.status).toBe(204);
   });
 });
