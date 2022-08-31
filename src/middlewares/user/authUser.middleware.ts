@@ -8,7 +8,8 @@ export const userAuthentication = (
 ) => {
   try {
     const token = req.headers.authorization?.split(" ")[1];
-
+    console.log(req.headers.authorization);
+    console.log(token);
     jwt.verify(
       token as string,
       process.env.SECRET_KEY as string,
