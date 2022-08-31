@@ -27,7 +27,7 @@ describe("Create ad route", () => {
 
     const response = await request(app)
       .post(`/ads`)
-      .set("Authorization", `Bearer ${userInfos[1]}`)
+      .auth(`${userInfos[1]}`, { type: "bearer" })
       .attach("front", frontImage)
       .attach("image", galleryImage)
       .attach("image", galleryImage)

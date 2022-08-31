@@ -42,7 +42,7 @@ describe("Update ad route", () => {
 
     const response = await request(app)
       .patch(`/ads/${ad.id}`)
-      .set("Authorization", `Bearer ${userInfos[1]}`)
+      .auth(`${userInfos[1]}`, { type: "bearer" })
       .attach("front", newFrontImage)
       .attach("image", newGalleryImage)
       .field("year", 2001)
