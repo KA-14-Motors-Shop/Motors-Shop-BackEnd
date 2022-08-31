@@ -31,10 +31,10 @@ describe("Delete image route", () => {
     );
 
     const img = ad.images.find(({ url }) => url === "testurl3@img.com");
-
+    console.log(tokenInfos[1]);
     const response = await request(app)
       .delete(`/ads/${ad.id}/image/${img.id}`)
-      .auth(`${tokenInfos[1]}`, { type: "bearer" });
+      .set("Authorization", `Bearer ${tokenInfos[1]}`);
     console.log(response.body);
     expect(response.status).toBe(204);
   });
