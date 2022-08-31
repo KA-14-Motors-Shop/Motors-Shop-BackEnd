@@ -8,11 +8,14 @@ export const userAuthentication = (
 ) => {
   try {
     const token = req.headers.authorization?.split(" ")[1];
-    console.log(req.headers.authorization);
+
     console.log(token);
+
+    console.log(String(process.env.SECRET_KEY));
+
     jwt.verify(
       token as string,
-      process.env.SECRET_KEY as string,
+      String(process.env.SECRET_KEY),
       (err: any, decoded: any) => {
         req.userEmail = decoded.email;
         next();
