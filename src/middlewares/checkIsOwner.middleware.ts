@@ -23,6 +23,7 @@ export const checkIsOwner = async (
   }
 
   if (user?.advertisements.some((elem) => elem.id === ad!.id)) {
+    req.advertisement = ad;
     next();
   } else {
     return res

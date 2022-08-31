@@ -3,6 +3,7 @@ import {
   AdvertisementType,
   VehicleType,
 } from "../../../entities/advertisements.entity";
+import { UserType } from "../../../entities/users.entity";
 import CreateAdvertisementService from "../../../services/advertisement/CreateAdvertisement.service";
 import ToggleIsActiveAdService from "../../../services/advertisement/ToggleIsActiveAd.service";
 import UserCreateService from "../../../services/user/userCreate.service";
@@ -25,6 +26,7 @@ describe("Should toggle an advertisement is active status", () => {
       description: "aylmao",
       cell_phone: "0123456",
       birthday: "1999-01-01",
+      type: UserType.ADVERTISER,
       address: {
         cep: "123456",
         state: "teststate",

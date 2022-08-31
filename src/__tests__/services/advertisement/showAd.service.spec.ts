@@ -3,6 +3,7 @@ import {
   AdvertisementType,
   VehicleType,
 } from "../../../entities/advertisements.entity";
+import { UserType } from "../../../entities/users.entity";
 import CreateAdvertisementService from "../../../services/advertisement/CreateAdvertisement.service";
 import ShowAdvertisementService from "../../../services/advertisement/ShowAdvertisement.service";
 import UserCreateService from "../../../services/user/userCreate.service";
@@ -24,6 +25,7 @@ describe("Show an advertisement", () => {
       description: "aylmao",
       cell_phone: "02345",
       birthday: "1999-01-01",
+      type: UserType.ADVERTISER,
       address: {
         cep: "123456",
         state: "teststate",

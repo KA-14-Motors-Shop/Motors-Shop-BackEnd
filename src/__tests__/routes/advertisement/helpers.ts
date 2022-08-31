@@ -2,6 +2,7 @@ import {
   AdvertisementType,
   VehicleType,
 } from "../../../entities/advertisements.entity";
+import { UserType } from "../../../entities/users.entity";
 import CreateAdvertisementService from "../../../services/advertisement/CreateAdvertisement.service";
 import UserCreateService from "../../../services/user/userCreate.service";
 import UserLoginService from "../../../services/user/userLogin.service";
@@ -19,6 +20,7 @@ export const getOwner = async (
     description: "aylmao",
     cell_phone,
     birthday: "1999-01-01",
+    type: UserType.ADVERTISER,
     address: {
       cep: "123456",
       state: "teststate",

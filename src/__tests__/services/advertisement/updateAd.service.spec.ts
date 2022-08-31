@@ -1,8 +1,10 @@
 import { AppDataSource } from "../../../data-source";
 import {
+  Advertisement,
   AdvertisementType,
   VehicleType,
 } from "../../../entities/advertisements.entity";
+import { UserType } from "../../../entities/users.entity";
 import CreateAdvertisementService from "../../../services/advertisement/CreateAdvertisement.service";
 import UpdateAdvertisementService from "../../../services/advertisement/UpdateAdvertisement.service";
 import UserCreateService from "../../../services/user/userCreate.service";
@@ -25,6 +27,7 @@ describe("Updating an advertisement", () => {
       description: "aylmao",
       cell_phone: "12345",
       birthday: "1999-01-01",
+      type: UserType.ADVERTISER,
       address: {
         cep: "123456",
         state: "teststate",
@@ -65,20 +68,36 @@ describe("Updating an advertisement", () => {
     );
 
     const updateData = {
-      ad_id: newAd.id,
       type: AdvertisementType.AUCTION,
       title: "test title update",
       year: 2001,
       mileage: 10000,
       price: 40000,
     };
+    const newImages = [
+      { url: "newurl@img.com", is_front: true },
+      { url: "newurl2@img.com", is_front: false },
+    ];
 
-    const updatedAd = await UpdateAdvertisementService.execute(updateData);
+    const adRepo = AppDataSource.getRepository(Advertisement);
+    const ad = await adRepo.findOne({
+      where: { id: newAd.id },
+    });
 
-    expect(updatedAd.type).toBe(AdvertisementType.AUCTION);
-    expect(updatedAd.title).toBe(updateData.title);
-    expect(updatedAd.year).toBe(updateData.year);
-    expect(updatedAd.mileage).toBe(updateData.mileage);
-    expect(updatedAd.price).toBe(updateData.price);
+    const updatedAd = await UpdateAdvertisementService.execute(
+      updateData,
+      newImages,
+      ad as Advertisement
+    );
+
+    expect(updatedAd?.type).toBe(AdvertisementType.AUCTION);
+    expect(updatedAd?.title).toBe(updateData.title);
+    expect(updatedAd?.year).toBe(updateData.year);
+    expect(updatedAd?.mileage).toBe(updateData.mileage);
+    expect(updatedAd?.price).toBe("40000.00");
+    expect(
+      updatedAd?.images.find(({ is_front }) => is_front === true)?.url
+    ).toBe(newImages[0].url);
+    expect(updatedAd?.images.length).toBe(3);
   });
 });
