@@ -11,7 +11,7 @@ export const userAuthentication = (
 
     jwt.verify(
       token as string,
-      process.env.SECRET_KEY as string,
+      String(process.env.SECRET_KEY),
       (err: any, decoded: any) => {
         req.userEmail = decoded.email;
         next();

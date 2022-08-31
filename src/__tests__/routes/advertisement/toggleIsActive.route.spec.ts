@@ -24,10 +24,10 @@ describe("Toggle is_active ad route", () => {
     );
     const ad = await createAd(
       AdvertisementType.AUCTION,
-      "testing title",
-      2000,
+      "testing title 8979",
+      20400,
       0,
-      40000,
+      402000,
       "test desc",
       VehicleType.CAR,
       true,

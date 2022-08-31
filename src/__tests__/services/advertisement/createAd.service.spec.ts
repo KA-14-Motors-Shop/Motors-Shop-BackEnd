@@ -37,10 +37,10 @@ describe("Create an advertisement", () => {
     });
 
     const type = AdvertisementType.SALE;
-    const title = "test title";
-    const year = 2000;
-    const mileage = 15000;
-    const price = 30000;
+    const title = "test title 3424";
+    const year = 203400;
+    const mileage = 154000;
+    const price = 300300;
     const description = "test desc";
     const vehicle_type = VehicleType.CAR;
     const is_active = true;

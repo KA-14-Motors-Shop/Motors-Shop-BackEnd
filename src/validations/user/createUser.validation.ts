@@ -39,7 +39,6 @@ export const addressSchemaValidator = async (
 
     return next();
   } catch (err: any) {
-    // console.log(err.errors)
     const errors = err.errors;
     return res.status(400).json({ errors });
   }

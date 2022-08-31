@@ -1,3 +1,4 @@
+import { DeleteResult } from "typeorm";
 import { AppDataSource } from "../../../data-source";
 import {
   AdvertisementType,
@@ -5,10 +6,10 @@ import {
 } from "../../../entities/advertisements.entity";
 import { UserType } from "../../../entities/users.entity";
 import CreateAdvertisementService from "../../../services/advertisement/CreateAdvertisement.service";
-import ToggleIsActiveAdService from "../../../services/advertisement/ToggleIsActiveAd.service";
+import DeleteImageService from "../../../services/image/DeleteImage.service";
 import UserCreateService from "../../../services/user/userCreate.service";
 
-describe("Should toggle an advertisement is active status", () => {
+describe("Delete Image", () => {
   beforeAll(async () => {
     await AppDataSource.initialize().catch((err) => console.log(err));
   });
@@ -17,14 +18,14 @@ describe("Should toggle an advertisement is active status", () => {
     await AppDataSource.destroy().catch((err) => console.log(err));
   });
 
-  it("Should toggle is active of an ad", async () => {
+  it("Should delete an image", async () => {
     const owner = await UserCreateService.creationService({
       name: "test",
-      cpf: "1234560",
-      email: "test3@mail.com",
+      cpf: "123456",
+      email: "test@mail.com",
       password: "1234",
       description: "aylmao",
-      cell_phone: "0123456",
+      cell_phone: "12345",
       birthday: "1999-01-01",
       type: UserType.ADVERTISER,
       address: {
@@ -38,18 +39,19 @@ describe("Should toggle an advertisement is active status", () => {
     });
 
     const type = AdvertisementType.SALE;
-    const title = "test title 756";
-    const year = 2000;
-    const mileage = 15543000;
-    const price = 3000540;
+    const title = "test title 345";
+    const year = 20300;
+    const mileage = 154000;
+    const price = 300020;
     const description = "test desc";
     const vehicle_type = VehicleType.CAR;
     const is_active = true;
     const images = [
       { url: "testurl@img.com", is_front: true },
       { url: "testurl2@img.com", is_front: false },
+      { url: "testurl3@img.com", is_front: false },
     ];
-    const userEmail = "test3@mail.com";
+    const userEmail = owner.email;
 
     const newAd = await CreateAdvertisementService.execute(
       {
@@ -66,8 +68,10 @@ describe("Should toggle an advertisement is active status", () => {
       images
     );
 
-    expect(newAd.is_active).toBe(true);
-    const toggleAd = await ToggleIsActiveAdService.execute(newAd.id);
-    expect(toggleAd?.is_active).toBe(false);
+    const img = newAd.images.find(({ url }) => url === "testurl3@img.com");
+
+    const delImage = await DeleteImageService.execute(img.id);
+
+    expect(delImage).toBeInstanceOf(DeleteResult);
   });
 });

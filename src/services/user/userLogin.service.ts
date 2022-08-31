@@ -9,15 +9,14 @@ export default class UserLoginService {
   static async userLoginService({ email, password }: UserLoginParams) {
     const userRepository = AppDataSource.getRepository(User);
 
-    
     const userAccount = await userRepository.findOne({
       where: {
         email,
       },
     });
-    
-    if (!userAccount) { 
-      throw new AppError("User not found!", 404)
+
+    if (!userAccount) {
+      throw new AppError("User not found!", 404);
     }
 
     if (!bcrypt.compareSync(password, userAccount.password)) {
