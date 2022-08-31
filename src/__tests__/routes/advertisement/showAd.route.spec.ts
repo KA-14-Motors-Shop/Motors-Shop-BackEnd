@@ -20,10 +20,10 @@ describe("Show ad route", () => {
     const owner = await getOwner("000001", "test2@mail.com", "999991");
     const ad = await createAd(
       AdvertisementType.AUCTION,
-      "testing title",
-      2000,
+      "testing title 664",
+      2050,
       0,
-      40000,
+      40020,
       "test desc",
       VehicleType.CAR,
       true,

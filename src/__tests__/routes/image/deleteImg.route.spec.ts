@@ -5,9 +5,9 @@ import {
   AdvertisementType,
   VehicleType,
 } from "../../../entities/advertisements.entity";
-import { getToken, createAd } from "./helpers";
+import { getToken, createAd } from "../advertisement/helpers";
 
-describe("Toggle is_active ad route", () => {
+describe("Delete image route", () => {
   beforeAll(async () => {
     await AppDataSource.initialize().catch((err) => console.log(err));
   });
@@ -16,7 +16,7 @@ describe("Toggle is_active ad route", () => {
     await AppDataSource.destroy().catch((err) => console.log(err));
   });
 
-  it("Should be able to toggle an ad's is_active status", async () => {
+  it("Should be able to delete an image", async () => {
     const [ownerEmail, token] = await getToken(
       "000002",
       "test3@mail.com",
@@ -24,29 +24,22 @@ describe("Toggle is_active ad route", () => {
     );
     const ad = await createAd(
       AdvertisementType.AUCTION,
-      "testing title 8979",
-      20400,
+      "testing title del image",
+      21000,
       0,
-      402000,
+      40200,
       "test desc",
       VehicleType.CAR,
       true,
       ownerEmail
     );
 
-    let response = await request(app)
-      .patch(`/ads/status/${ad.id}`)
-      .set("Authorization", `Bearer ${token}`)
-      .send({});
+    const img = ad.images.find(({ url }) => url === "testurl3@img.com");
 
-    expect(response.body.id).toEqual(ad.id);
-    expect(response.body.is_active).toEqual(false);
+    const response = await request(app)
+      .delete(`/ads/${ad.id}/image/${img.id}`)
+      .set("Authorization", `Bearer ${token}`);
 
-    response = await request(app)
-      .patch(`/ads/status/${ad.id}`)
-      .set("Authorization", `Bearer ${token}`)
-      .send({});
-
-    expect(response.body.is_active).toEqual(true);
+    expect(response.status).toBe(204);
   });
 });

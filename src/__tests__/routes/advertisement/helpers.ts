@@ -75,6 +75,7 @@ export const createAd = async (
     [
       { url: "testurl@img.com", is_front: true },
       { url: "testurl2@img.com", is_front: false },
+      { url: "testurl3@img.com", is_front: false },
     ]
   );
   return ad;
