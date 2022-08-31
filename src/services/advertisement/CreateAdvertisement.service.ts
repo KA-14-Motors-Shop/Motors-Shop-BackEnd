@@ -45,13 +45,17 @@ export default class CreateAdvertisementService {
       vehicleImage.url = images[i].url;
       vehicleImage.is_front = images[i].is_front;
       vehicleImage.advertisement = ad;
-      adImgs = [
-        ...adImgs,
-        { url: vehicleImage.url, is_front: vehicleImage.is_front },
-      ];
 
       const newImage = imgRepo.create(vehicleImage);
       await imgRepo.save(newImage);
+      adImgs = [
+        ...adImgs,
+        {
+          id: newImage.id,
+          url: newImage.url,
+          is_front: newImage.is_front,
+        },
+      ];
     }
 
     return {
