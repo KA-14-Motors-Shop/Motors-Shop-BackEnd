@@ -38,10 +38,10 @@ describe("Should toggle an advertisement is active status", () => {
     });
 
     const type = AdvertisementType.SALE;
-    const title = "test title";
+    const title = "test title 756";
     const year = 2000;
-    const mileage = 15000;
-    const price = 30000;
+    const mileage = 15543000;
+    const price = 3000540;
     const description = "test desc";
     const vehicle_type = VehicleType.CAR;
     const is_active = true;

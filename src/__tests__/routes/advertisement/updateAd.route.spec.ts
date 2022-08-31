@@ -18,11 +18,7 @@ describe("Update ad route", () => {
   });
 
   it("Should be able to update an ad", async () => {
-    const [ownerEmail, token] = await getToken(
-      "000002",
-      "test3@mail.com",
-      "999992"
-    );
+    const userInfos = await getToken("000002", "test3@mail.com", "999992");
     const ad = await createAd(
       AdvertisementType.AUCTION,
       "title update test",
@@ -32,7 +28,7 @@ describe("Update ad route", () => {
       "update desc",
       VehicleType.CAR,
       true,
-      ownerEmail
+      userInfos[0]
     );
 
     const newFrontImage = path.resolve(
@@ -46,7 +42,7 @@ describe("Update ad route", () => {
 
     const response = await request(app)
       .patch(`/ads/${ad.id}`)
-      .set("Authorization", `Bearer ${token}`)
+      .set("Authorization", `Bearer ${userInfos[1]}`)
       .attach("front", newFrontImage)
       .attach("image", newGalleryImage)
       .field("year", 2001)

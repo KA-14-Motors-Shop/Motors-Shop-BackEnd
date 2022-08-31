@@ -39,10 +39,10 @@ describe("Delete Image", () => {
     });
 
     const type = AdvertisementType.SALE;
-    const title = "test title";
-    const year = 2000;
-    const mileage = 15000;
-    const price = 30000;
+    const title = "test title 345";
+    const year = 20300;
+    const mileage = 154000;
+    const price = 300020;
     const description = "test desc";
     const vehicle_type = VehicleType.CAR;
     const is_active = true;

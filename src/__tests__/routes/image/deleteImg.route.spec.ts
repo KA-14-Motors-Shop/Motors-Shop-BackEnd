@@ -17,11 +17,7 @@ describe("Delete image route", () => {
   });
 
   it("Should be able to delete an image", async () => {
-    const [ownerEmail, token] = await getToken(
-      "000002",
-      "test3@mail.com",
-      "999992"
-    );
+    const tokenInfos = await getToken("000002", "test3@mail.com", "999992");
     const ad = await createAd(
       AdvertisementType.AUCTION,
       "testing title del image",
@@ -31,14 +27,14 @@ describe("Delete image route", () => {
       "test desc",
       VehicleType.CAR,
       true,
-      ownerEmail
+      tokenInfos[0]
     );
 
     const img = ad.images.find(({ url }) => url === "testurl3@img.com");
-    console.log(token);
+
     const response = await request(app)
       .delete(`/ads/${ad.id}/image/${img.id}`)
-      .set("Authorization", `Bearer ${token}`);
+      .set("Authorization", `Bearer ${tokenInfos[1]}`);
 
     expect(response.status).toBe(204);
   });

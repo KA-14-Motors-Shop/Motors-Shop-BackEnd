@@ -14,11 +14,7 @@ describe("Create ad route", () => {
   });
 
   it("Should be able to create an ad", async () => {
-    const [ownerEmail, token] = await getToken(
-      "000002",
-      "test3@mail.com",
-      "999992"
-    );
+    const userInfos = await getToken("000002", "test3@mail.com", "999992");
 
     const frontImage = path.resolve(
       __dirname,
@@ -31,7 +27,7 @@ describe("Create ad route", () => {
 
     const response = await request(app)
       .post(`/ads`)
-      .set("Authorization", `Bearer ${token}`)
+      .set("Authorization", `Bearer ${userInfos[1]}`)
       .attach("front", frontImage)
       .attach("image", galleryImage)
       .attach("image", galleryImage)
