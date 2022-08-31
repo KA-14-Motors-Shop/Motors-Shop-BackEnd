@@ -35,7 +35,7 @@ describe("Delete image route", () => {
     );
 
     const img = ad.images.find(({ url }) => url === "testurl3@img.com");
-
+    console.log(img);
     const response = await request(app)
       .delete(`/ads/${ad.id}/image/${img.id}`)
       .set("Authorization", `Bearer ${token}`);
