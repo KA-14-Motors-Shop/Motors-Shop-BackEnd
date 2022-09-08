@@ -24,8 +24,6 @@ export default class ShowAdvertisementService {
       owner: {
         id: adOwner?.id,
         name: adOwner?.name,
-        email: adOwner?.email,
-        type: adOwner?.type,
         description: adOwner?.description,
         is_active: adOwner?.is_active,
       },

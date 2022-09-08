@@ -15,13 +15,14 @@ export default class ListAdvertisementsService {
         user.advertisements.some((adv) => adv.id === ad.id)
       );
 
+      const fronImage = ad.images.find(({ is_front }) => is_front === true);
+
       const serializedAd = {
         ...ad,
+        images: fronImage,
         owner: {
           id: owner?.id,
           name: owner?.name,
-          email: owner?.email,
-          type: owner?.type,
         },
       };
 
