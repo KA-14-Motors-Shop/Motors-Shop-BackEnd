@@ -8,7 +8,7 @@ export default class ListAdvertisementsService {
     const userRepo = AppDataSource.getRepository(User);
 
     const users = await userRepo.find();
-    const ads = await adRepo.find();
+    const ads = await (await adRepo.find()).filter((ad) => ad.is_active);
 
     const adList = ads.map((ad) => {
       const owner = users.find((user) =>
