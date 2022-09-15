@@ -72,6 +72,6 @@ export class User {
   })
   advertisements: Advertisement[];
 
-  @OneToMany((type) => Comment, (comment) => comment.user)
+  @OneToMany((type) => Comment, (comment) => comment.user, { eager: true })
   comments: Comment[];
 }

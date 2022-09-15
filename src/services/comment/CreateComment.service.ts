@@ -42,6 +42,10 @@ export default class CreateCommentService {
     const newComment = commentRepository.create(comment);
     await commentRepository.save(newComment);
 
-    return newComment;
+    return {
+      ...newComment,
+      advertisement: { id: advertisement.id, title: advertisement.title },
+      user: { id: user.id, name: user.name },
+    };
   }
 }
