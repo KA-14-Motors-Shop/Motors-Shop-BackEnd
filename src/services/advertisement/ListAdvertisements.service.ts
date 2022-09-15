@@ -8,18 +8,18 @@ export default class ListAdvertisementsService {
     const userRepo = AppDataSource.getRepository(User);
 
     const users = await userRepo.find();
-    const ads = await adRepo.find();
+    const ads = await (await adRepo.find()).filter((ad) => ad.is_active);
 
     const adList = ads.map((ad) => {
       const owner = users.find((user) =>
         user.advertisements.some((adv) => adv.id === ad.id)
       );
 
-      const fronImage = ad.images.find(({ is_front }) => is_front === true);
+      const frontImage = ad.images.find(({ is_front }) => is_front === true);
 
       const serializedAd = {
         ...ad,
-        images: fronImage,
+        images: frontImage,
         owner: {
           id: owner?.id,
           name: owner?.name,
