@@ -7,6 +7,7 @@ import {
   ManyToOne,
   OneToMany,
 } from "typeorm";
+import { Comment } from "./comments.entity";
 import { Image } from "./images.entity";
 import { User } from "./users.entity";
 
@@ -72,4 +73,9 @@ export class Advertisement {
 
   @OneToMany((type) => Image, (image) => image.advertisement, { eager: true })
   images: Image[];
+
+  @OneToMany((type) => Comment, (comment) => comment.advertisement, {
+    eager: true,
+  })
+  comments: Comment[];
 }
