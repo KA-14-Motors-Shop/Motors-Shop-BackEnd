@@ -19,6 +19,19 @@ export default class ShowAdvertisementService {
       user.advertisements.some((adv) => adv.id === ad.id)
     );
 
+    const completedComments = ad.comments.map((comment) => {
+      const commentUser = users.find((user) =>
+        user.comments.some(({ id }) => id === comment.id)
+      );
+
+      return {
+        id: comment.id,
+        value: comment.value,
+        createdAt: comment.createdAt,
+        user: { id: commentUser?.id, name: commentUser?.name },
+      };
+    });
+
     return {
       ...ad,
       owner: {
@@ -27,6 +40,7 @@ export default class ShowAdvertisementService {
         description: adOwner?.description,
         is_active: adOwner?.is_active,
       },
+      comments: completedComments,
     };
   }
 }

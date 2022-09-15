@@ -11,6 +11,7 @@ import {
 import { Address } from "./addresses.entity";
 import { Advertisement } from "./advertisements.entity";
 import { Exclude } from "class-transformer";
+import { Comment } from "./comments.entity";
 
 export enum UserType {
   BUYER = "buyer",
@@ -36,7 +37,7 @@ export class User {
 
   @Column({ type: "date" })
   birthday: string;
-  
+
   @Exclude()
   @Column({ type: "varchar", width: 256, nullable: false })
   password: string;
@@ -70,4 +71,7 @@ export class User {
     eager: true,
   })
   advertisements: Advertisement[];
+
+  @OneToMany((type) => Comment, (comment) => comment.user, { eager: true })
+  comments: Comment[];
 }
