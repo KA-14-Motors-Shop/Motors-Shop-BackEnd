@@ -25,7 +25,12 @@ adRouter.post(
 );
 adRouter.get("/", AdvertisimentController.index);
 adRouter.get("/:ad_id", AdvertisimentController.show);
-adRouter.patch("/status/:ad_id", AdvertisimentController.toggleActive);
+adRouter.patch(
+  "/status/:ad_id",
+  userAuthentication,
+  checkIsOwner,
+  AdvertisimentController.toggleActive
+);
 adRouter.patch(
   "/:ad_id",
   Multer.fields([{ name: "image" }, { name: "front", maxCount: 1 }]),
