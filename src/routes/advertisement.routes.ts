@@ -28,7 +28,6 @@ adRouter.get("/:ad_id", AdvertisimentController.show);
 adRouter.patch(
   "/status/:ad_id",
   userAuthentication,
-  checkIsOwner,
   AdvertisimentController.toggleActive
 );
 adRouter.patch(
