@@ -35,5 +35,5 @@ export interface UserUpdateParams {
   cell_phone: string;
   birthday: string;
   address: AddresCreationParams;
-  id: string;
+  globalId: string;
 }
