@@ -7,23 +7,13 @@ import { Advertisement } from "../../entities/advertisements.entity";
 import AppError from "../../errors/AppError";
 
 export default class UserUpdateService {
-  static async userUpdateService({
-    name,
-    cpf,
-    email,
-    password,
-    description,
-    cell_phone,
-    birthday,
-    address,
-    id,
-  }: UserUpdateParams) {
+  static async userUpdateService(data: UserUpdateParams,globalId:string) {
     const userRepository = AppDataSource.getRepository(User);
     const addresRepository = AppDataSource.getRepository(Address);
 
     const user = await userRepository.findOne({
       where: {
-        id,
+        id:globalId,
       },
     });
 
@@ -39,24 +29,24 @@ export default class UserUpdateService {
 
     const updatedUser = {
       id: user.id,
-      name: name || user.name,
-      email: email || user.email,
-      cpf: cpf || user.cpf,
-      password: password ? bcrypt.hashSync(password, 10) : user.password,
-      description: description || user.description,
-      cell_phone: cell_phone || user.cell_phone,
-      birthday: birthday || user.birthday,
+      name: data.name || user.name,
+      email: data.email || user.email,
+      cpf: data.cpf || user.cpf,
+      password: data.password ? bcrypt.hashSync(data.password, 10) : user.password,
+      description: data.description || user.description,
+      cell_phone: data.cell_phone || user.cell_phone,
+      birthday: data.birthday || user.birthday,
       createdAt: user.createdAt,
       updatedAt: new Date(),
     };
 
     const updatedAddress = {
       id: userAddress?.id,
-      cep: address.cep || userAddress?.cep,
-      city: address.city || userAddress?.city,
-      street: address.street || userAddress?.street,
-      number: address.number || userAddress?.number,
-      complement: address.complement || userAddress?.complement,
+      cep: data.address.cep || userAddress?.cep,
+      city: data.address.city || userAddress?.city,
+      street: data.address.street || userAddress?.street,
+      number: data.address.number || userAddress?.number,
+      complement: data.address.complement || userAddress?.complement,
       updatedAt: new Date(),
     };
     await addresRepository.update(userAddress!.id, updatedAddress);
@@ -72,7 +62,7 @@ export default class UserUpdateService {
       birthday: updatedUser.birthday,
       createdAt: updatedUser.createdAt,
       updatedAt: new Date(),
-      address,
+      updatedAddress,
     };
 
     return userReturned;

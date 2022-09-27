@@ -93,29 +93,22 @@ export default class UserController {
   static async update(req: Request, res: Response) {
     const globalId = req.userId;
 
-    const {
-      name,
-      cpf,
-      email,
-      password,
-      description,
-      cell_phone,
-      birthday,
-      address,
-      id,
-    } = req.body;
+    // const {
+    //   name,
+    //   cpf,
+    //   email, 
+    //   password,
+    //   description,
+    //   cell_phone,
+    //   birthday,
+    //   address,
+    // } = req.body;
+    if(!req.body.address){
+      req.body.address = {}
+    }
 
-    const newUser = await UserUpdateService.userUpdateService({
-      name,
-      cpf,
-      email,
-      password,
-      description,
-      cell_phone,
-      birthday,
-      address,
-      id,
-    });
+    console.log(req.body)
+    const newUser = await UserUpdateService.userUpdateService(req.body, globalId);
 
     return res.status(201).json({
       message: "User updated!",
