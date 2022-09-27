@@ -103,6 +103,10 @@ export default class UserController {
     //   birthday,
     //   address,
     // } = req.body;
+    if(!req.body.address){
+      req.body.address = {}
+    }
+
     console.log(req.body)
     const newUser = await UserUpdateService.userUpdateService(req.body, globalId);
 

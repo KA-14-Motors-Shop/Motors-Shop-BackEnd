@@ -7,7 +7,7 @@ import { Advertisement } from "../../entities/advertisements.entity";
 import AppError from "../../errors/AppError";
 
 export default class UserUpdateService {
-  static async userUpdateService(data: UserUpdateParams, globalId:string) {
+  static async userUpdateService(data: UserUpdateParams,globalId:string) {
     const userRepository = AppDataSource.getRepository(User);
     const addresRepository = AppDataSource.getRepository(Address);
 
