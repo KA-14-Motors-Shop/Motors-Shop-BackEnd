@@ -7,13 +7,13 @@ import { Advertisement } from "../../entities/advertisements.entity";
 import AppError from "../../errors/AppError";
 
 export default class UserUpdateService {
-  static async userUpdateService(data: UserUpdateParams,globalId:string) {
+  static async userUpdateService(data: UserUpdateParams, userEmail: string) {
     const userRepository = AppDataSource.getRepository(User);
     const addresRepository = AppDataSource.getRepository(Address);
 
     const user = await userRepository.findOne({
       where: {
-        id:globalId,
+        email: userEmail,
       },
     });
 
@@ -32,7 +32,9 @@ export default class UserUpdateService {
       name: data.name || user.name,
       email: data.email || user.email,
       cpf: data.cpf || user.cpf,
-      password: data.password ? bcrypt.hashSync(data.password, 10) : user.password,
+      password: data.password
+        ? bcrypt.hashSync(data.password, 10)
+        : user.password,
       description: data.description || user.description,
       cell_phone: data.cell_phone || user.cell_phone,
       birthday: data.birthday || user.birthday,
