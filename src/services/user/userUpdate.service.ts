@@ -47,6 +47,7 @@ export default class UserUpdateService {
       cep: data.address.cep || userAddress?.cep,
       city: data.address.city || userAddress?.city,
       street: data.address.street || userAddress?.street,
+      state: data.address.state || userAddress?.state,
       number: data.address.number || userAddress?.number,
       complement: data.address.complement || userAddress?.complement,
       updatedAt: new Date(),
