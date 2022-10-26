@@ -1,11 +1,11 @@
 import { AppDataSource } from "../../../data-source";
 
 import UserCreateService from "../../../services/user/userCreate.service";
-import { UserType } from "../../../entities/users.entity";
-import UserUpdateService from "../../../services/user/userUpdate.service";
 import UserListService from "../../../services/user/userList.service";
+import { UserType } from "../../../entities/users.entity";
+import UserDeleteService from "../../../services/user/useDelete.service";
 
-describe("Update a user profile", () => {
+describe("Delete my profile", () => {
   beforeAll(async () => {
     await AppDataSource.initialize().catch((err) => console.log(err));
   });
@@ -14,7 +14,7 @@ describe("Update a user profile", () => {
     await AppDataSource.destroy().catch((err) => console.log(err));
   });
 
-  it("It should be able to update an user profile", async () => {
+  it("It should be able to delete a profile", async () => {
     const user_1 = {
       name: "User test",
       cpf: "12345678912",
@@ -35,26 +35,12 @@ describe("Update a user profile", () => {
     };
 
     const newUser = await UserCreateService.creationService(user_1);
-    const myProfile = await UserListService.listMyProfileService(user_1.email);
 
-    const updatedUser = await UserUpdateService.userUpdateService({name: "User test",
-    cpf: "12345678912",
-    email: "Gabriel@teste.com",
-    password: "1234",
-    description: "Lorem ipsum Dolor",
-    cell_phone: "5561999999998",
-    birthday: "1999-01-01",
-    address: {
-      cep: "12345678",
-      state: "State test",
-      city: "City test",
-      street: "Street test",
-      number: 22,
-      complement: "Lorem ipsum Dolor",
-    },globalId:myProfile.id
-  },"usertest@email.com");
+    const myProfile = await UserDeleteService.userDeleteService(newUser.email);
 
-  expect(updatedUser.email).toEqual("Gabriel@teste.com")
+    expect(newUser).toHaveProperty("email");
+    expect(myProfile).toBe(true)
+
+    
   });
-
 });
