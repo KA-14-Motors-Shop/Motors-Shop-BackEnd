@@ -1,4 +1,4 @@
-version: '3.9'
+version: "3.9"
 
 services:
   database_psql:
@@ -15,9 +15,9 @@ services:
     ports:
       - "5434:5432"
     environment:
-    - POSTGRES_PASSWORD=123caps
-    - POSTGRES_USER=capsm6
-    - POSTGRES_DB=testsm6
+      - POSTGRES_PASSWORD=123caps
+      - POSTGRES_USER=capsm6
+      - POSTGRES_DB=testsm6
     restart: always
 
   api-node:
@@ -26,6 +26,6 @@ services:
     ports:
       - 3000:3000
     volumes:
-    - ./:/app/:rw
+      - ./:/app/:rw
     env_file:
       - ./.env
